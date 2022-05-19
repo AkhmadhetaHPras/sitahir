@@ -14,10 +14,30 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        Admin::truncate();
+        
 
         $datas = [
-            [],
+            [
+                'id' => 1,
+                'id_users' => 1,
+                'nama' => 'Ardha Nur Azizah',
+                'alamat' => 'Jl. Melati RT 04/RW 02',
+                'nowa' => '085748682562'
+            ],
+            [
+                'id' => 2,
+                'id_users' => 3,
+                'nama' => 'Ahmad Rafif Alaudin',
+                'alamat' => 'Jl. Anggraini RT 08/RW 02',
+                'nowa' => '087654367976'
+            ],
+            [
+                'id' => 3,
+                'id_users' => 5,
+                'nama' => 'Irfan Ali',
+                'alamat' => 'Jl. Melati RT 08/RW 02',
+                'nowa' => '085234765897'
+            ]
         ];
 
         Admin::insert($datas);

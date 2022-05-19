@@ -19,7 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('nama', 50);
             $table->string('alamat', 100);
             $table->string('nowa', 20);
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->timestamps();
 
             $table->foreign('id_users')->references('id')->on('users');

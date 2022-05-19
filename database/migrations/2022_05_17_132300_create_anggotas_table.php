@@ -21,7 +21,7 @@ class CreateAnggotasTable extends Migration
             $table->string('alamat', 100);
             $table->date('tgl_gabung')->nullable();
             $table->string('nowa', 20);
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->unsignedTinyInteger('instalasi');
             $table->timestamps();
 
