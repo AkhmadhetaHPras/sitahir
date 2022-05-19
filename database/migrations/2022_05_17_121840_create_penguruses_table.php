@@ -20,7 +20,7 @@ class CreatePengurusesTable extends Migration
             $table->string('alamat', 100);
             $table->string('jabatan', 50);
             $table->string('nowa', 20);
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->timestamps();
 
             $table->foreign('id_users')->references('id')->on('users');
