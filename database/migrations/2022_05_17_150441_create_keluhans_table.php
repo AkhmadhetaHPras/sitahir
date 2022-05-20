@@ -22,7 +22,7 @@ class CreateKeluhansTable extends Migration
             $table->text('deskripsi');
             $table->date('tgl_survey')->nullable();
             $table->date('tgl_selesai')->nullable();
-            $table->string('status', 50);
+            $table->string('status', 50)->nullable();
             $table->timestamps();
 
             $table->foreign('id_anggota')->references('id')->on('anggota');
