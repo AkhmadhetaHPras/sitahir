@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             PengumumanSeeder::class,
             TarifAirSeeder::class,
             UserSeeder::class,
+            UserRoleSeeder::class,
             PengurusSeeder::class,
             AdminSeeder::class,
             AnggotaSeeder::class,
