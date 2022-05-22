@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-    </head>
-    <body class="font-sans antialiased bg-light">
-        @include('layouts.navigation')
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
 
-        <!-- Page Heading -->
-        <header class="d-flex py-3 bg-white shadow-sm border-bottom">
-            <div class="container">
-                {{ $header }}
-            </div>
-        </header>
+    <!-- Line Awesome -->
+    <link rel="stylesheet" href="{{ asset('css/line-awesome.min.css') }}" />
 
-        <!-- Page Content -->
-        <main class="container my-5">
-            {{ $slot }}
-        </main>
-    </body>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+</head>
+
+<body>
+    <!-- navigation -->
+    @include('layouts.navigation', ['profile' => $profile])
+
+    <!-- main content -->
+    <section class="home-section p-5">
+        {{ $slot }}
+    </section>
+
+    <script src="{{ asset('js/script.js') }}"></script>
+</body>
+
 </html>

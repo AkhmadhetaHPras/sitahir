@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Admin;
+use App\Models\Anggota;
+use App\Models\Pengurus;
 use Illuminate\Support\ServiceProvider;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {

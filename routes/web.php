@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// first route
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// for all roles
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/myprofile', [DashboardController::class, 'myprofile'])->name('dashboard.myprofile');
+});
 
-require __DIR__.'/auth.php';
+// for anggota
+Route::group(['middleware' => ['auth', 'role:anggota']], function () {
+    Route::get('/bukuair',)->name('bukuair');
+    Route::get('/ajukankeluhan',)->name('ajukankeluhan');
+    Route::get('/instalasi',)->name('instalasi');
+});
+require __DIR__ . '/auth.php';

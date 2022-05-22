@@ -14,7 +14,7 @@ class PengurusSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         $datas = [
             [
@@ -22,7 +22,7 @@ class PengurusSeeder extends Seeder
                 'id_users' => 2,
                 'nama' => 'Akhmadheta Hafid Prasetyawan',
                 'alamat' => 'Jl. Mawar RT 09/RW 02',
-                'jabatan' => 'ketua',
+                'jabatan' => 'Ketua',
                 'nowa' => '081276867546',
             ],
             [
@@ -36,7 +36,7 @@ class PengurusSeeder extends Seeder
             [
                 'id' => 3,
                 'id_users' => 6,
-                'nama' => 'Putra Ali ',
+                'nama' => 'Putra Ali',
                 'alamat' => 'Jl. Sanggar RT 01/RW 01',
                 'jabatan' => 'Bendahara',
                 'nowa' => '085378663787',

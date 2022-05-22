@@ -53,6 +53,12 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (!Auth::user()->hasRole('options')) {
+            throw ValidationException::withMessages([
+                'username' => trans('auth.failed'),
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

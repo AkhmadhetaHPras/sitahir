@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ********** */
+/* **LOGIN** */
+/* ********** */
+.login,
+.login .row {
+  height: 100vh;
+}
+
+.login .left {
+  background-color: white;
+}
+
+.login .left .title {
+  top: 10px;
+  left: 20px;
+}
+
+.login .left .container-card-login {
+  height: 100%;
+}
+
+.login .left .container-card-login .card-login {
+  background-color: #f5f9ff;
+  width: 600px;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+.login .left .container-card-login .card-login label.btn {
+  background-color: white;
+  color: black;
+  border-color: white;
+}
+
+.login
+  .left
+  .container-card-login
+  .card-login
+  input[type="radio"]:checked
+  + label {
+  background-color: #4f46ba;
+  color: white;
+  border-color: #4f46ba;
+}
+
+.login .right {
+  background-color: #f5f9ff;
+}
+
+.login .right .container-about {
+  height: 100%;
+}
+
+.logo-details {
+  height: 60px;
+}
+
+.logo-details .logo_name h2 {
+  font-size: 30px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.logo-details .logo_name h6 {
+  font-size: 12px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.right .hero {
+  width: 18vw;
+}
+
+@media (max-width: 768px) {
+  .right .hero {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .login .left .container-card-login .card-login {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+}
+
+@media (max-width: 452px) {
+  .right {
+    display: none;
+  }
+
+  .login .left .container-card-login .card-login {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .left .card-login label.btn {
+    width: 100%;
+  }
+}
