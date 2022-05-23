@@ -24,6 +24,7 @@ class PengurusSeeder extends Seeder
                 'alamat' => 'Jl. Mawar RT 09/RW 02',
                 'jabatan' => 'Ketua',
                 'nowa' => '081276867546',
+                'foto' => 'img/profile/default.png',
             ],
             [
                 'id' => 2,
@@ -32,6 +33,7 @@ class PengurusSeeder extends Seeder
                 'alamat' => 'Jl. Tanggunan RT 02/RW 01',
                 'jabatan' => 'Sekretaris',
                 'nowa' => '082567348675',
+                'foto' => 'img/profile/default.png',
             ],
             [
                 'id' => 3,
@@ -40,6 +42,7 @@ class PengurusSeeder extends Seeder
                 'alamat' => 'Jl. Sanggar RT 01/RW 01',
                 'jabatan' => 'Bendahara',
                 'nowa' => '085378663787',
+                'foto' => 'img/profile/default.png',
             ],
         ];
 

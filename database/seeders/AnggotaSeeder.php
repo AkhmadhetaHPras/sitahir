@@ -15,7 +15,7 @@ class AnggotaSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         $datas = [
             [
@@ -25,6 +25,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Mawar RT 09/RW 02',
                 'tgl_gabung' => Carbon::parse('2021-02-01'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 1
             ],
             [
@@ -34,6 +35,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Ngadiluwih RT 09/RW 01',
                 'tgl_gabung' => Carbon::parse('2021-03-01'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 2
             ],
             [
@@ -43,6 +45,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Mawar RT 09/RW 02',
                 'tgl_gabung' => Carbon::parse('2021-03-20'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 3
             ],
             [
@@ -52,6 +55,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Melati RT 01/RW 10',
                 'tgl_gabung' => Carbon::parse('2021-03-05'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 4
             ],
             [
@@ -61,6 +65,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Sanggar RT 09/RW 02',
                 'tgl_gabung' => Carbon::parse('2021-04-05'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 5
             ],
             [
@@ -70,6 +75,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Gathot Subroto RT 02/RW 01',
                 'tgl_gabung' => Carbon::parse('2022-01-01'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 6
             ],
             [
@@ -79,6 +85,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Warujayeng RT 09/RW 02',
                 'tgl_gabung' => Carbon::parse('2022-03-02'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 7
             ],
             [
@@ -88,6 +95,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Putungan RT 05/RW 06',
                 'tgl_gabung' => Carbon::parse('2022-05-21'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 8
             ],
             [
@@ -97,6 +105,7 @@ class AnggotaSeeder extends Seeder
                 'alamat' => 'Jl. Setono RT 10/RW 02',
                 'tgl_gabung' => Carbon::parse('2022-05-27'),
                 'nowa' => '086754765876',
+                'foto' => 'img/profile/default.png',
                 'instalasi' => 9
             ]
         ];
