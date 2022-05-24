@@ -295,11 +295,52 @@
   margin: 18px;
 }
 
+/* KOMPONEN */
+/* KOMPONEN */
+/* KOMPONEN */
+/* KOMPONEN */
+/* KOMPONEN */
+
+/* warna */
+
+/* ----ANGGOTA */
+/* button bayar tagihan */
+.tagihan .total {
+  padding: 15px;
+  background-color: #4f46ba;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.tagihan .total-text {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+
+.tagihan .bayar-con {
+  display: block;
+}
+
+.tagihan .bayar {
+  padding: 8px;
+  font-weight: bold;
+  color: white;
+  background-color: #f2c94c;
+  border-radius: 10px;
+  text-decoration: none;
+  float: right !important;
+}
+
+/*  Row penggunaan air pada buku air*/
+
+/* DASHBOARD */
+/* DASHBOARD */
+/* DASHBOARD */
+/* DASHBOARD */
+
 /* =======ANGGOTA====== */
-/* DASHBOARD */
-/* DASHBOARD */
-/* DASHBOARD */
-/* DASHBOARD */
 
 /* BUKU AIR */
 /* BUKU AIR */
@@ -310,6 +351,50 @@
 /* AJUKAN KELUHAN */
 /* AJUKAN KELUHAN */
 /* AJUKAN KELUHAN */
+.ajukan-keluhan li.nav-item a {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-right: 40px;
+}
+
+.ajukan-keluhan .dalam-proses {
+  background-color: #f2c94c;
+  padding: 8px 20px;
+  border-radius: 5pt;
+  display: inline-block;
+}
+
+.ajukan-keluhan .dalam-proses1 {
+  float: right;
+  margin-top: 1vh;
+}
+
+.ajukan-keluhan .dalam-proses2 {
+  margin-top: 1vh;
+}
+
+.ajukan-keluhan hr {
+  color: #006aff;
+}
+
+.ajukan-keluhan .dalam-selesai {
+  background-color: #6fcf97;
+  padding: 8px 20px;
+  border-radius: 5pt;
+  display: inline-block;
+}
+
+.ajukan-keluhan .dalam-selesai1 {
+  float: right;
+  margin-top: 1vh;
+}
+
+.ajukan-keluhan .dalam-selesai2 {
+  margin-top: 1vh;
+}
 
 /* INSTALASI */
 /* INSTALASI */
@@ -378,5 +463,45 @@
   .sidebar.open ~ .home-section {
     left: 0;
     width: 100vw;
+  }
+}
+
+/* DASHBOARD */
+@media (max-width: 927px) and (min-width: 768px) {
+  .tagihan .total-text {
+    font-size: 1.5rem;
+  }
+
+  .tagihan .bayar {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 817px) and (min-width: 768px) {
+  .card-kubik .card-body h2 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 437px) {
+  .card-kubik .card-body h2 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 436px) {
+  .card-kubik .card-body h2 {
+    font-size: 32px;
+  }
+}
+
+/* Ajukan Keluhan Anggota */
+@media (max-width: 595px) {
+  .ajukan-keluhan li.nav-item a {
+    font-size: 1.2rem;
+    margin-right: 20px;
+  }
+
+  .ajukan-keluhan .tab-content {
+    font-size: smaller;
   }
 }
