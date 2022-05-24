@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Anggota\AjukanKeluhanController;
+use App\Http\Controllers\Anggota\BukuAirController;
+use App\Http\Controllers\Anggota\InstalasiAnggotaController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,13 +25,46 @@ Route::get('/', function () {
 // for all roles
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/myprofile', [DashboardController::class, 'myprofile'])->name('dashboard.myprofile');
+    Route::post('/dashboard/myprofile', [DashboardController::class, 'myprofile'])->name('dashboard.myprofile');
 });
 
 // for anggota
 Route::group(['middleware' => ['auth', 'role:anggota']], function () {
-    Route::get('/bukuair',)->name('bukuair');
-    Route::get('/ajukankeluhan',)->name('ajukankeluhan');
-    Route::get('/instalasi',)->name('instalasi');
+    Route::get('/bukuair', [BukuAirController::class, 'index'])->name('bukuair');
+    Route::get('/ajukankeluhan', [AjukanKeluhanController::class, 'index'])->name('ajukankeluhan');
+    Route::get('/instalasi', [InstalasiAnggotaController::class, 'index'])->name('instalasi');
 });
+
+// for ADMIN
+Route::group(['middleware' => ['auth', 'role:admin|pengurus']], function () {
+    Route::get('/anggota', function () {
+        return view('dashboard');
+    })->name('anggota');
+    Route::get('/bukuairanggota', function () {
+        return view('dashboard');
+    })->name('bukuairanggota');
+    Route::get('/anggaranlistrik', function () {
+        return view('dashboard');
+    })->name('anggaranlistrik');
+    Route::get('/tanggapikeluhan', function () {
+        return view('dashboard');
+    })->name('tanggapikeluhan');
+    Route::get('/pengumuman', function () {
+        return view('dashboard');
+    })->name('pengumuman');
+    Route::get('/instalasianggota', function () {
+        return view('dashboard');
+    })->name('instalasianggota');
+    Route::get('/tarif', function () {
+        return view('dashboard');
+    })->name('tarif');
+});
+
+
+Route::group(['middleware' => ['auth', 'role:pengurus']], function () {
+    Route::get('/pengurus', function () {
+        return view('dashboard');
+    })->name('pengurus');
+});
+
 require __DIR__ . '/auth.php';

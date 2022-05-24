@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
+
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,11 +32,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $param = $request->request->all();
 
-        $request->session()->regenerate();
+        $user = User::where('username', $param['username'])->first();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if ($user->hasRole($param['options'])) {
+            $request->authenticate();
+            $request->session()->regenerate();
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } else {
+            RateLimiter::hit($request->throttleKey());
+
+            throw ValidationException::withMessages([
+                'username' => trans('auth.wrong'),
+            ]);
+        }
     }
 
     /**

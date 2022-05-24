@@ -28,7 +28,7 @@
 
 <body>
     <!-- navigation -->
-    @include('layouts.navigation', ['profile' => $profile])
+    @include('layouts.navigation', ['profile' => $profile, 'instalasi' => $instalasi ])
 
     <!-- main content -->
     <section class="home-section p-4">

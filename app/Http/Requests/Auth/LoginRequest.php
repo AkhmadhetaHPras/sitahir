@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\Role_User;
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -45,15 +47,22 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        $param = $this->request->all();
+
+        $user = User::where('username', $param['username'])->first();
+
+        // if (!Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
+
+        // }
+
+        // if ($user->hasRole($param['options'])) {
+        // }
+
+
+
         if (!Auth::attempt($this->only('username', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            throw ValidationException::withMessages([
-                'username' => trans('auth.failed'),
-            ]);
-        }
-
-        if (!Auth::user()->hasRole('options')) {
             throw ValidationException::withMessages([
                 'username' => trans('auth.failed'),
             ]);
