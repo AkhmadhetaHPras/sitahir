@@ -35,16 +35,23 @@ class AuthenticatedSessionController extends Controller
         $param = $request->request->all();
 
         $user = User::where('username', $param['username'])->first();
+        if (!is_null($user)) {
+            if ($user->hasRole($param['options'])) {
+                $request->authenticate();
+                $request->session()->regenerate();
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } else {
+                RateLimiter::hit($request->throttleKey());
 
-        if ($user->hasRole($param['options'])) {
-            $request->authenticate();
-            $request->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::HOME);
+                throw ValidationException::withMessages([
+                    'username' => trans('auth.failed'),
+                ]);
+            }
         } else {
             RateLimiter::hit($request->throttleKey());
 
             throw ValidationException::withMessages([
-                'username' => trans('auth.wrong'),
+                'username' => trans('auth.failed'),
             ]);
         }
     }
