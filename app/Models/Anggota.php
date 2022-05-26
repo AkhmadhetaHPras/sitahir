@@ -20,4 +20,9 @@ class Anggota extends Model
         'foto',
         'instalasi',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_users');
+    }
 }
