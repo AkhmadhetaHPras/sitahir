@@ -20,13 +20,14 @@ class AppLayout extends Component
     {
         $instalasi = '';
         if (Auth::user()->hasRole('pengurus')) {
-            $userprofile = Pengurus::where('id_users', Auth::user()->id)->first();
+            $userprofile = Pengurus::where('id_users', Auth::user()->id)->with('user')->first();
         } elseif (Auth::user()->hasRole('admin')) {
-            $userprofile = Admin::where('id_users', Auth::user()->id)->first();
+            $userprofile = Admin::where('id_users', Auth::user()->id)->with('user')->first();
         } elseif (Auth::user()->hasRole('anggota')) {
-            $userprofile = Anggota::where('id_users', Auth::user()->id)->first();
-            $instalasi = Instalasi::where('id_anggota', $userprofile->id)->first();
+            $userprofile = Anggota::where('id_users', Auth::user()->id)->with('user')->first();
+            $instalasi = Instalasi::where('id_anggota', $userprofile->id)->with('user')->first();
         }
         return view('layouts.app', ['profile' => $userprofile, 'instalasi' => $instalasi]);
+        // return dd($userprofile->user);
     }
 }

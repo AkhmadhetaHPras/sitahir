@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 // first route
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
 });
 
 // for all roles
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/dashboard/myprofile', [DashboardController::class, 'myprofile'])->name('dashboard.myprofile');
+    Route::put('/dashboard/myprofile/{user:username}', [DashboardController::class, 'myprofile'])->name('dashboard.myprofile');
 });
 
 // for anggota

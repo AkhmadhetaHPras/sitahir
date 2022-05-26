@@ -340,12 +340,64 @@
 /* DASHBOARD */
 /* DASHBOARD */
 
+/* line chart */
+.overview-pengumuman .overview .chart-container {
+  position: relative;
+  height: 115px;
+  width: 100%;
+}
+
+/* card pengumuman */
+.overview-pengumuman .card-pengumuman .card-body {
+  max-height: 266px;
+}
 /* =======ANGGOTA====== */
 
 /* BUKU AIR */
 /* BUKU AIR */
 /* BUKU AIR */
 /* BUKU AIR */
+/* buku-air */
+
+.buku-air .buku-air-first-col h6.month-name,
+.buku-air .buku-air-second-col h6.month-name {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  line-height: 1.2rem;
+}
+
+.buku-air .card-penggunaan-air-bulan {
+  width: 100%;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.buku-air .card-penggunaan-air-bulan .row-air {
+  width: 100%;
+}
+
+.buku-air .card-penggunaan-air-bulan label.btn-upload h3 {
+  font-weight: 700;
+}
+
+.buku-air .card-penggunaan-air-bulan label.btn-upload:hover {
+  color: #4f46ba;
+  cursor: pointer;
+}
+
+.buku-air .card-penggunaan-air-bulan .row-air h3 {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.buku-air .card-penggunaan-air-bulan .row-air h3:hover {
+  color: #4f46ba;
+  cursor: pointer;
+}
+
+.buku-air .card-penggunaan-air-bulan p.ket {
+  font-size: 0.8rem;
+}
 
 /* AJUKAN KELUHAN */
 /* AJUKAN KELUHAN */

@@ -1,5 +1,5 @@
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-phone" style="display: none;">
+<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-phone">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <div class="logo-details">
@@ -242,25 +242,30 @@
                             <h6 class="border-3 border-p mt-2">Profile</h6>
                         </div>
                         <div class="col-sm-10">
-                            <form action="{{ route('dashboard.myprofile') }}" method="POST" id="form" enctype="multipart/form-data">
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            <form action="{{ route('dashboard.myprofile', $profile->user->username) }}" method="POST" id="form" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="mb-2 row">
-                                    <label for="myImage" class="col-sm-4 col-form-label label-modal">Foto</label>
+                                    <label for="foto" class="col-sm-4 col-form-label label-modal">Foto</label>
                                     <div class="col-sm-8">
                                         <img src="{{ asset('storage/'.$profile->foto) }}" alt="" width="80" height="80" id="preImg" class="rounded">
-                                        <input type="file" class="form-control form-control-sm" id="myImage" name="myImage" required>
+                                        <input type="file" class="form-control form-control-sm" id="foto" name="foto" required>
                                     </div>
                                 </div>
                                 <div class="mb-2 row">
                                     <label for="nama" class="col-sm-4 col-form-label label-modal">Nama</label>
                                     <div class="col-sm-8">
                                         <input type="name" class="form-control form-control-sm" id="nama" name="nama" maxlength="50" required value="{{ $profile->nama }}">
-                                    </div>
-                                </div>
-                                <div class="mb-2 row">
-                                    <label for="email" class="col-sm-4 col-form-label">Email</label>
-                                    <div class="col-sm-8">
-                                        <input type="email" class="form-control form-control-sm" id="email" name="email" maxlength="50" required value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
                                 <div class="mb-2 row d-flex align-items-center">
@@ -297,6 +302,12 @@
                                         Change Credentials
                                     </a>
                                     <div class="collapse" id="changeCredentials">
+                                        <div class="mb-2 row">
+                                            <label for="email" class="col-sm-4 col-form-label">Email</label>
+                                            <div class="col-sm-8">
+                                                <input type="email" class="form-control form-control-sm" id="email" name="email" maxlength="50" required value="{{ Auth::user()->email }}">
+                                            </div>
+                                        </div>
                                         <div class="mb-2 row d-flex align-items-center">
                                             <label for="username" class="col-sm-4 col-form-label">Username</label>
                                             <div class="col-sm-8">

@@ -1,6 +1,6 @@
 <x-app-layout>
     <!-- OVERVIEW DAN PENGUMUMAN -->
-    <div class="container-fluid overview-pengumuman">
+    <div class="container-fluid overview-pengumuman mb-3">
         <div class="row">
             <!-- OVERVIEW -->
             <h5 class="overview-title mb-3 ps-0">
@@ -38,7 +38,7 @@
                         <div class="card card-cart p-2">
                             <h6 class="card-title">Line Cart</h6>
                             <div class="card-body p-2">
-                                <div class="chart-container" style="position: relative; height: 115px; width: 100%">
+                                <div class="chart-container">
                                     <canvas id="myChart"></canvas>
                                 </div>
 
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-12 ps-0 mb-2" style="height: 100%">
+                    <div class="col-md-6 col-12 ps-0 mb-2">
                         <div class="card card-saldo p-2">
                             <h6 class="card-title">Saldo Kas</h6>
                             <div class="card-body p-2">
@@ -122,7 +122,7 @@
             <div class="pengumuman col-md-4 col-12 ps-0">
                 <div class="card card-pengumuman p-3">
                     <h6 class="card-title">Pengumuman</h6>
-                    <div class="card-body p-2">
+                    <div class="card-body p-2 overflow-auto">
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
