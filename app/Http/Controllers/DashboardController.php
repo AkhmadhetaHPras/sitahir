@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
+use App\Models\Instalasi;
 use App\Models\Pengurus;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,6 +21,11 @@ class DashboardController extends Controller
         } elseif (Auth::user()->hasRole('admin')) {
             return view('dashboard');
         } elseif (Auth::user()->hasRole('anggota')) {
+            $userprofile = Anggota::where('id_users', Auth::user()->id)->with('user')->first();
+            $instalasi = Instalasi::where('id_anggota', $userprofile->id)->first();
+            if ($instalasi->status != 'selesesai') {
+                return redirect('instalasi');
+            }
             return view('dashboard');
         }
     }

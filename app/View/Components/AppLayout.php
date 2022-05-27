@@ -25,7 +25,7 @@ class AppLayout extends Component
             $userprofile = Admin::where('id_users', Auth::user()->id)->with('user')->first();
         } elseif (Auth::user()->hasRole('anggota')) {
             $userprofile = Anggota::where('id_users', Auth::user()->id)->with('user')->first();
-            $instalasi = Instalasi::where('id_anggota', $userprofile->id)->with('user')->first();
+            $instalasi = Instalasi::where('id_anggota', $userprofile->id)->first();
         }
         return view('layouts.app', ['profile' => $userprofile, 'instalasi' => $instalasi]);
         // return dd($userprofile->user);

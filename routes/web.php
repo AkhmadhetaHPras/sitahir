@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // first route
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // for all roles
