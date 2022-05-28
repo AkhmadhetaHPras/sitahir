@@ -26,7 +26,7 @@ class KeluhanSeeder extends Seeder
                 'deskripsi' => 'Pipa Pecah Sepanjang 5 cm',
                 'tgl_survey' => Carbon::parse('2021-04-03'),
                 'tgl_selesai' => Carbon::parse('2021-04-05'),
-                'status' => 'selesai',
+                'status' => 'Selesai',
             ],
             [
                 'id' => 2,

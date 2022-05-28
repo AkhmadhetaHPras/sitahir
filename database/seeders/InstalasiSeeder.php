@@ -15,7 +15,7 @@ class InstalasiSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         $datas = [
             [
@@ -26,7 +26,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 490000,
                 'tgl_pemasangan' => Carbon::parse('2021-02-04'),
                 'tgl_selesai' => Carbon::parse('2021-02-04'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 2,
@@ -36,7 +36,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 535000,
                 'tgl_pemasangan' => Carbon::parse('2021-03-05'),
                 'tgl_selesai' => Carbon::parse('2021-03-05'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 3,
@@ -46,7 +46,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 770000,
                 'tgl_pemasangan' => Carbon::parse('2021-03-22'),
                 'tgl_selesai' => Carbon::parse('2021-03-22'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 4,
@@ -56,7 +56,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 490000,
                 'tgl_pemasangan' => Carbon::parse('2021-03-07'),
                 'tgl_selesai' => Carbon::parse('2021-03-07'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 5,
@@ -66,7 +66,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 385000,
                 'tgl_pemasangan' => Carbon::parse('2021-04-09'),
                 'tgl_selesai' => Carbon::parse('2021-04-09'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 6,
@@ -76,7 +76,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 480000,
                 'tgl_pemasangan' => Carbon::parse('2022-01-03'),
                 'tgl_selesai' => Carbon::parse('2022-01-03'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 7,
@@ -86,7 +86,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 490000,
                 'tgl_pemasangan' => Carbon::parse('2022-03-04'),
                 'tgl_selesai' => Carbon::parse('2022-03-04'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 8,
@@ -96,7 +96,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 490000,
                 'tgl_pemasangan' => Carbon::parse('2022-05-25'),
                 'tgl_selesai' => Carbon::parse('2022-05-25'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ],
             [
                 'id' => 9,
@@ -106,7 +106,7 @@ class InstalasiSeeder extends Seeder
                 'tarif_instalasi' => 410000,
                 'tgl_pemasangan' => Carbon::parse('2022-05-30'),
                 'tgl_selesai' => Carbon::parse('2022-05-30'),
-                'status' => 'selesai'
+                'status' => 'Selesai'
             ]
         ];
 
