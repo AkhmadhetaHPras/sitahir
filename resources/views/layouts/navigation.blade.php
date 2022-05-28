@@ -73,7 +73,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link d-flex justify-content-between profile" href="#">
-                        <div data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <div data-bs-toggle="modal" data-bs-target="#profilemodal">
                             <img class="rounded-circle" src="{{ asset('storage/'.$profile->foto) }}" alt="profileImg" width="32px" />
                             <span class="ms-2"> {{ Auth::user()->username  }}</span>
                         </div>
@@ -102,7 +102,7 @@
     </div>
     <ul class="nav-list">
         <!-- for ANGGOTA user where instalasi belum selesai -->
-        @if(Auth::user()->hasRole('anggota') and $instalasi->status != 'selesai')
+        @if(Auth::user()->hasRole('anggota') and $instalasi->status != 'Selesai')
         <li class="{{ (request()->is('instalasi')) ? 'active' : '' }}">
             <a href="{{ route('instalasi') }}">
                 <i class="las la-tools"></i>

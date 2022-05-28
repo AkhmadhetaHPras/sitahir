@@ -69,7 +69,7 @@ class DashboardController extends Controller
         } elseif (Auth::user()->hasRole('anggota')) {
             $userprofile = Anggota::where('id_users', Auth::user()->id)->with('user')->first();
             $instalasi = Instalasi::where('id_anggota', $userprofile->id)->first();
-            if ($instalasi->status != 'selesai') {
+            if ($instalasi->status != 'Selesai') {
                 return redirect('instalasi');
             }
             return view('dashboard', compact('data'));

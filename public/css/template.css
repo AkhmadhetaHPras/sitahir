@@ -452,7 +452,25 @@
 /* INSTALASI */
 /* INSTALASI */
 /* INSTALASI */
+/* Tabel */
+.rincian-kebutuhan .table {
+  box-shadow: 0px 0px 50px -3px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
 
+.rincian-kebutuhan .table .ins-thead {
+  background-color: #4f46ba;
+  color: white;
+}
+
+.rincian-kebutuhan .table .kol1 {
+  padding-left: 3vw;
+}
+
+.rincian-kebutuhan .table .rupiah {
+  font-size: 0.85em;
+}
 /* =======ADMIN====== */
 /* ANGGOTA */
 /* ANGGOTA */
@@ -502,7 +520,7 @@
 /* ********** */
 
 /* NAVIGATION */
-@media (max-width: 515px) {
+@media (max-width: 542px) {
   .sidebar-comp {
     display: none;
   }
