@@ -18,4 +18,9 @@ class FormInstalasiAlat extends Model
         'harga_satuan',
         'subtotal',
     ];
+
+    public function instalasi()
+    {
+        return $this->belongsTo(Instalasi::class, 'id_instalasi');
+    }
 }

@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function () {
     Route::get('/instalasi', [InstalasiAnggotaController::class, 'index'])->name('instalasi');
 });
 
-// for ADMIN
+// for ADMIN and Pengurus
 Route::group(['middleware' => ['auth', 'role:admin|pengurus']], function () {
     Route::get('/anggota', function () {
         return view('dashboard');
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth', 'role:admin|pengurus']], function () {
     })->name('tarif');
 });
 
-
+// for PENGURUS
 Route::group(['middleware' => ['auth', 'role:pengurus']], function () {
     Route::get('/pengurus', function () {
         return view('dashboard');

@@ -25,4 +25,19 @@ class Anggota extends Model
     {
         return $this->belongsTo(User::class, 'id_users');
     }
+
+    public function buku_air()
+    {
+        return $this->hasMany(BukuAir::class, 'id_anggota');
+    }
+
+    public function keluhan()
+    {
+        return $this->hasMany(Keluhan::class, 'id_anggota');
+    }
+
+    public function instalasi()
+    {
+        return $this->hasOne(Instalasi::class, 'id_anggota');
+    }
 }
