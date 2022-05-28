@@ -20,4 +20,9 @@ class Keluhan extends Model
         'tgl_selesai',
         'status',
     ];
+
+    public function anggota()
+    {
+        return $this->belongsTo(Anggota::class, 'id_anggota');
+    }
 }
