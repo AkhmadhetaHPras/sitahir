@@ -12,7 +12,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
@@ -88,24 +90,51 @@ class DashboardController extends Controller
 
         if ($user->hasRole('pengurus')) {
             // validation
-            $request->validate([
+            // $request->validate([
+            //     'nama' => 'required',
+            //     'alamat' => 'required',
+            //     'nowa' => 'required',
+            //     'foto' => 'image|nullable',
+            // ]);
+            $validator1 = Validator::make($request->all(), [
                 'nama' => 'required',
                 'alamat' => 'required',
                 'nowa' => 'required',
                 'foto' => 'image|nullable',
             ]);
 
+            if ($validator1->fails()) {
+                return redirect('/dashboard')
+                    ->withErrors($validator1)
+                    ->with('error_code', 5);
+            }
+
             // get data pengurus
             $profile = Pengurus::where('id_users', $user->id)->first();
 
             // validation if user change credentials
             if (isset($request->checkChangeCredentials)) {
-                $request->validate([
-                    'username' => ['required', 'string', 'max:255', 'unique:users'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'current_password' => ['required', 'confirmed', Rules\Password::defaults()],
+                $validator2 = Validator::make($request->all(), [
+                    'username' => ['required', 'string', 'max:255', 'unique:users,username,' . Auth::user()->id],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::user()->id],
+                    'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                        if (!Hash::check($value, $user->password)) {
+                            return $fail(__('The current password is incorrect.'));
+                        }
+                    }],
                     'newpassword' => ['required', 'confirmed', Rules\Password::defaults()],
                 ]);
+
+                if ($validator2->fails()) {
+                    return redirect('/dashboard')
+                        ->withErrors($validator2)
+                        ->with('error_code', 5);
+                }
+
+                $user->username = $request->get('username');
+                $user->email = $request->get('email');
+                $user->password = Hash::make($request->get('newpassword'));
+                $user->save();
             }
 
             // update data
@@ -134,8 +163,8 @@ class DashboardController extends Controller
             $profile->save();
 
             // feedback - sementara menggunakan ini, next menggunakan ajax
-            return redirect()->route('dashboard')
-                ->with('success', 'Profil Berhasil Diupdate');
+            return redirect('/dashboard')
+                ->with(array('success' => "Data berhasil diupdate", 'error_code' => 5));
         } elseif ($user->hasRole('admin')) {
             // validation
             // validation if user change credentials

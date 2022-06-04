@@ -252,6 +252,11 @@
                                 </ul>
                             </div>
                             @endif
+                            @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                            @endif
                             <form action="{{ route('dashboard.myprofile', $profile->user->username) }}" method="POST" id="form" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -299,7 +304,7 @@
 
                                 <div class="mb-5">
                                     <div class="form-check d-flex justify-content-end mb-2">
-                                        <input type="checkbox" id="checkChangeCredentials" name='checkChangeCredentials' data-bs-toggle="collapse" data-bs-target="#changeCredentials" aria-expanded="false" aria-controls="collapseExample">
+                                        <input type="checkbox" id="checkChangeCredentials" name='checkChangeCredentials' data-bs-toggle="collapse" data-bs-target="#changeCredentials" aria-expanded="false" aria-controls="collapseCredentials" style="display: none;">
                                         <label for="checkChangeCredentials">
                                             Change Credentials
                                         </label>
@@ -321,8 +326,7 @@
                                         <div class="mb-2 row d-flex align-items-center">
                                             <label for="current_password" class="col-sm-4 col-form-label">Current Password</label>
                                             <div class="col-sm-8">
-                                                <input type="hidden" class="form-control form-control-sm" id="current_password" name="current_password" value="{{ Auth::user()->password }}">
-                                                <input type="password" class="form-control form-control-sm" id="current_password_validation" name="current_password_validation">
+                                                <input type="password" class="form-control form-control-sm" id="current_password" name="current_password">
                                             </div>
                                         </div>
                                         <div class="mb-2 row d-flex align-items-center">
@@ -355,3 +359,17 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+@if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
+<script>
+    $(function() {
+        $('#profilemodal').modal('show');
+        window.setTimeout(function() {
+            $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 10000);
+    });
+</script>
+@endif
