@@ -66,10 +66,10 @@
                 @endif
                 @foreach($selesai as $s)
                 <div class="col-md-7 col-sm-12 col-12 dalam-selesai mb-3">
-                    <p class="dalam-selesai1">{{ $p->tgl_pengajuan }}</p>
-                    <h5 class="dalam-selesai2"><b>{{ $p->jenis_keluhan }}</b></h5>
+                    <p class="dalam-selesai1">{{ $s->tgl_pengajuan }}</p>
+                    <h5 class="dalam-selesai2"><b>{{ $s->jenis_keluhan }}</b></h5>
                     <p class="dalam-selesai3">
-                        {{ $p->deskripsi }}
+                        {{ $s->deskripsi }}
                     </p>
                     <hr size="4" width="250" />
                     <p class="dalam-selesai4">Perbaikan selesai dilakukan</p>
