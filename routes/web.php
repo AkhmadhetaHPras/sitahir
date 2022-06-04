@@ -30,8 +30,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 // for anggota
 Route::group(['middleware' => ['auth', 'role:anggota']], function () {
+    // buku air
     Route::get('/bukuair', [BukuAirController::class, 'index'])->name('bukuair');
+
+    // keluhan
     Route::get('/ajukankeluhan', [AjukanKeluhanController::class, 'index'])->name('ajukankeluhan');
+    Route::post('/ajukankeluhan', [AjukanKeluhanController::class, 'store'])->name('ajukankeluhan.store');
+    Route::put('/ajukankeluhan/{keluhan}', [AjukanKeluhanController::class, 'update'])->name('ajukankeluhan.update');
+
+    // instalasi
     Route::get('/instalasi', [InstalasiAnggotaController::class, 'index'])->name('instalasi');
 });
 

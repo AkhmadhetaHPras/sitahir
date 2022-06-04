@@ -12,13 +12,34 @@
                 <a id="pills-selesai-tab" data-bs-toggle="pill" data-bs-target="#pills-selesai" type="button" role="tab" aria-controls="pills-selesai">Selesai</a>
             </li>
         </ul>
+        <div class="row">
+            <div class="col-md-6 col-sm-8 col-12 mb-3">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                @if ($message = Session::get('keluhansuccess'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+                @endif
+            </div>
+        </div>
         <!-- konten keluhan -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active row" id="pills-baru" role="tabpanel" aria-labelledby="baru-tab">
-                <form class="keluhan-baru col-md-6 col-sm-8 col-12">
+                <form action="{{ route('ajukankeluhan.store') }}" method="POST" class="keluhan-baru col-md-6 col-sm-8 col-12">
+                    @csrf
+                    @method('POST')
                     <div class="mb-3">
                         <label for="jeniskeluhan" class="form-label">Jenis Keluhan</label>
-                        <select class="form-select" id="jeniskeluhan">
+                        <select class="form-select" id="jeniskeluhan" name="jeniskeluhan">
                             <option value="Kerusakan Pipa" selected>Kerusakan Pipa</option>
                             <option value="Kerusakan Meteran Air">Kerusakan Meteran Air</option>
                             <option value="Masalah Keran">Masalah Keran</option>
@@ -28,7 +49,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="deskripsikeluhan" class="form-label">Jenis Keluhan</label>
-                        <textarea class="form-control" name="" id="deskripsikeluhan" cols="48" rows="4"></textarea>
+                        <textarea class="form-control" name="deskripsikeluhan" id="deskripsikeluhan" cols="48" rows="4"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-warning">Kirim</button>
@@ -50,11 +71,11 @@
                     @if(is_null($p->tgl_survey))
                     <p class="dalam-proses4">Menunggu jadwal survey lokasi</p>
                     @else
-                    <p class="dalam-proses4">
-                    <form action="" class="d-flex justify-content-between">
+                    <form action="{{ route('ajukankeluhan.update', $p->id) }}" method="post" class="d-flex justify-content-between">
+                        @csrf
+                        @method('PUT')
                         <span>Jadwal Survey {{ $p->tgl_survey }}</span> <button type="submit" class="btn btn-success">Selesai</button>
                     </form>
-                    </p>
                     @endif
                 </div>
                 @endforeach

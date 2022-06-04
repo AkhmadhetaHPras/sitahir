@@ -14,3 +14,11 @@ function menuBtnChange() {
     closeBtn.classList.replace("la-times", "la-bars"); //replacing the iocns class
   }
 }
+
+window.setTimeout(function () {
+  $(".alert")
+    .fadeTo(500, 0)
+    .slideUp(500, function () {
+      $(this).remove();
+    });
+}, 10000);

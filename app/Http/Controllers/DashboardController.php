@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\AnggaranListrik;
 use App\Models\Anggota;
 use App\Models\BukuAir;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
@@ -104,7 +106,7 @@ class DashboardController extends Controller
             ]);
 
             if ($validator1->fails()) {
-                return redirect('/dashboard')
+                return Redirect::back()
                     ->withErrors($validator1)
                     ->with('error_code', 5);
             }
@@ -126,7 +128,7 @@ class DashboardController extends Controller
                 ]);
 
                 if ($validator2->fails()) {
-                    return redirect('/dashboard')
+                    return Redirect::back()
                         ->withErrors($validator2)
                         ->with('error_code', 5);
                 }
@@ -163,22 +165,155 @@ class DashboardController extends Controller
             $profile->save();
 
             // feedback - sementara menggunakan ini, next menggunakan ajax
-            return redirect('/dashboard')
+            return Redirect::back()
                 ->with(array('success' => "Data berhasil diupdate", 'error_code' => 5));
+
+
+            // jika admin
         } elseif ($user->hasRole('admin')) {
             // validation
+            $validator1 = Validator::make($request->all(), [
+                'nama' => 'required',
+                'alamat' => 'required',
+                'nowa' => 'required',
+                'foto' => 'image|nullable',
+            ]);
+
+            if ($validator1->fails()) {
+                return Redirect::back()
+                    ->withErrors($validator1)
+                    ->with('error_code', 5);
+            }
+
+            // get data admin
+            $profile = Admin::where('id_users', $user->id)->first();
+
             // validation if user change credentials
+            if (isset($request->checkChangeCredentials)) {
+                $validator2 = Validator::make($request->all(), [
+                    'username' => ['required', 'string', 'max:255', 'unique:users,username,' . Auth::user()->id],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::user()->id],
+                    'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                        if (!Hash::check($value, $user->password)) {
+                            return $fail(__('The current password is incorrect.'));
+                        }
+                    }],
+                    'newpassword' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
+
+                if ($validator2->fails()) {
+                    return Redirect::back()
+                        ->withErrors($validator2)
+                        ->with('error_code', 5);
+                }
+
+                $user->username = $request->get('username');
+                $user->email = $request->get('email');
+                $user->password = Hash::make($request->get('newpassword'));
+                $user->save();
+            }
 
             // update data
+            $profile->nama = $request->get('nama');
+            $profile->alamat = $request->get('alamat');
+            $profile->nowa = $request->get('nowa');
+
+            if ($request->hasFile('foto')) {
+                // ada file yang diupload
+                if ($profile->foto && $profile->foto != 'img/profile/default.png' && file_exists(storage_path('app/public/' . $profile->foto))) {
+                    Storage::delete('public/' . $profile->foto);
+                }
+                $filenameWithExt = $request->file('foto')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('foto')->getClientOriginalExtension();
+                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $path = $request->file('foto')->storeAs('public/img/profile/admin', $filenameSimpan);
+                $savepath = 'img/profile/admin/' . $filenameSimpan;
+            } else {
+                // tidak ada file yang diupload
+                $savepath = $profile->foto;
+            }
+            $profile->foto = $savepath;
 
             // save
+            $profile->save();
+
+            // feedback - sementara menggunakan ini, next menggunakan ajax
+            return Redirect::back()
+                ->with(array('success' => "Data berhasil diupdate", 'error_code' => 5));
+
+            // jika anggota
         } elseif ($user->hasRole('anggota')) {
             // validation
+            $validator1 = Validator::make($request->all(), [
+                'nama' => 'required',
+                'alamat' => 'required',
+                'nowa' => 'required',
+                'foto' => 'image|nullable',
+            ]);
+
+            if ($validator1->fails()) {
+                return Redirect::back()
+                    ->withErrors($validator1)
+                    ->with('error_code', 5);
+            }
+
+            // get data anggota
+            $profile = Anggota::where('id_users', $user->id)->first();
+
             // validation if user change credentials
+            if (isset($request->checkChangeCredentials)) {
+                $validator2 = Validator::make($request->all(), [
+                    'username' => ['required', 'string', 'max:255', 'unique:users,username,' . Auth::user()->id],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::user()->id],
+                    'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                        if (!Hash::check($value, $user->password)) {
+                            return $fail(__('The current password is incorrect.'));
+                        }
+                    }],
+                    'newpassword' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
+
+                if ($validator2->fails()) {
+                    return Redirect::back()
+                        ->withErrors($validator2)
+                        ->with('error_code', 5);
+                }
+
+                $user->username = $request->get('username');
+                $user->email = $request->get('email');
+                $user->password = Hash::make($request->get('newpassword'));
+                $user->save();
+            }
 
             // update data
+            $profile->nama = $request->get('nama');
+            $profile->alamat = $request->get('alamat');
+            $profile->nowa = $request->get('nowa');
+
+            if ($request->hasFile('foto')) {
+                // ada file yang diupload
+                if ($profile->foto && $profile->foto != 'img/profile/default.png' && file_exists(storage_path('app/public/' . $profile->foto))) {
+                    Storage::delete('public/' . $profile->foto);
+                }
+                $filenameWithExt = $request->file('foto')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('foto')->getClientOriginalExtension();
+                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $path = $request->file('foto')->storeAs('public/img/profile/anggota', $filenameSimpan);
+                $savepath = 'img/profile/anggota/' . $filenameSimpan;
+            } else {
+                // tidak ada file yang diupload
+                $savepath = $profile->foto;
+            }
+            $profile->foto = $savepath;
 
             // save
+            $profile->save();
+
+            // feedback - sementara menggunakan ini, next menggunakan ajax
+            return Redirect::back()
+                ->with(array('success' => "Data berhasil diupdate", 'error_code' => 5));
         } else {
             return dd('nol');
         }
