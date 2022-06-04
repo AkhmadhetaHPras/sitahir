@@ -294,7 +294,7 @@
                                 </div>
                                 @endif
                                 @if(Auth::user()->hasRole('anggota'))
-                                <div class="mb-2 row">
+                                <div class="mb-2 row d-flex align-items-center">
                                     <label for="tgl_gabung" class="col-sm-4 col-form-label">Tanggal Gabung</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control-plaintext form-control-sm" id="tgl_gabung" name="tgl_gabung" value="{{ $profile->tgl_gabung }}" readonly>
@@ -359,17 +359,3 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-@if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
-<script>
-    $(function() {
-        $('#profilemodal').modal('show');
-        window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function() {
-                $(this).remove();
-            });
-        }, 10000);
-    });
-</script>
-@endif
