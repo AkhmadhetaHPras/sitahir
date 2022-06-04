@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth', 'role:anggota']], function () {
     // buku air
     Route::get('/bukuair', [BukuAirController::class, 'index'])->name('bukuair');
+    Route::put('/bukuair/{bukuair}', [BukuAirController::class, 'uploadfoto'])->name('bukuair.uploadfoto');
 
     // keluhan
     Route::get('/ajukankeluhan', [AjukanKeluhanController::class, 'index'])->name('ajukankeluhan');

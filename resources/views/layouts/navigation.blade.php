@@ -257,7 +257,7 @@
                                 <p>{{ $message }}</p>
                             </div>
                             @endif
-                            <form action="{{ route('dashboard.myprofile', $profile->user->username) }}" method="POST" id="form" enctype="multipart/form-data">
+                            <form action="{{ route('dashboard.myprofile', $profile->user->username) }}" method="POST" id="formProfile" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-2 row">

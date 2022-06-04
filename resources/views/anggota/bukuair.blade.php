@@ -4,6 +4,21 @@
             <h5 class="buku-air-title mb-3 ps-0">
                 <span class="border-3 border-bottom border-primary">Buku Air</span>
             </h5>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            @if ($message = Session::get('bukuairsuccess'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
                 @foreach($bukuairs->slice(0,6) as $b)
 
@@ -17,11 +32,13 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2">
                                 <div class="row row-air text-center">
-                                    <form action="">
-                                        <label for="inputfotometeran" class="form-label btn-upload mb-0 p-0">
+                                    <form action="{{ route('bukuair.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
                                             <h3 class="mb-0">UPLOAD</h3>
                                         </label>
-                                        <input class="form-control" type="file" id="inputfotometeran" style="display: none" />
+                                        <input class="form-control" type="file" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" onchange="form.submit()" style="display: none" />
                                         <p class="ket mb-0">
                                             Lakukan upload foto meteran air pada tangal 1 - 9
                                         </p>
@@ -42,12 +59,50 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2 d-flex align-items-center">
                                 <div class="row row-air text-center">
-                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#fotometeran">
+                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#fotometeran{{$b->id}}">
                                         LIHAT FOTO
                                     </h3>
                                     <p class="ket mb-0">Lihat foto yang telah anda upload</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal foto meteran air -->
+                <div class="modal fade" id="fotometeran{{$b->id}}" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">
+                                    Edit Foto Meteran Air
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <form action="{{ route('bukuair.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-2 row">
+                                                    <div class="col-12">
+                                                        <img src="{{ asset('storage/'.$b->foto) }}" alt="" width="100%" id="preImg" class="rounded mb-2" />
+                                                        <input type="file" class="form-control form-control-sm" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" required />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-2 row d-flex justify-content-end">
+                                                    <div class="col-sm-3 text-end">
+                                                        <input class="btn btn-outline-p" type="submit" name="submitfotometeran" id="submitfotometeran" value="Submit" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"></div>
                         </div>
                     </div>
                 </div>
@@ -134,11 +189,13 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2">
                                 <div class="row row-air text-center">
-                                    <form action="">
-                                        <label for="inputfotometeran" class="form-label btn-upload mb-0 p-0">
+                                    <form action="{{ route('bukuair.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
                                             <h3 class="mb-0">UPLOAD</h3>
                                         </label>
-                                        <input class="form-control" type="file" id="inputfotometeran" style="display: none" />
+                                        <input class="form-control" type="file" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" onchange="form.submit()" style="display: none" />
                                         <p class="ket mb-0">
                                             Lakukan upload foto meteran air pada tangal 1 - 9
                                         </p>
@@ -159,12 +216,50 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2 d-flex align-items-center">
                                 <div class="row row-air text-center">
-                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#fotometeran">
+                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#fotometeran{{$b->id}}">
                                         LIHAT FOTO
                                     </h3>
                                     <p class="ket mb-0">Lihat foto yang telah anda upload</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal foto meteran air -->
+                <div class="modal fade" id="fotometeran{{$b->id}}" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">
+                                    Edit Foto Meteran Air
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <form action="{{ route('bukuair.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="mb-2 row">
+                                                    <div class="col-12">
+                                                        <img src="{{ asset('storage/'.$b->foto) }}" alt="" width="100%" id="preImg" class="rounded mb-2" />
+                                                        <input type="file" class="form-control form-control-sm" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" required />
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-2 row d-flex justify-content-end">
+                                                    <div class="col-sm-3 text-end">
+                                                        <input class="btn btn-outline-p" type="submit" name="submitfotometeran" id="submitfotometeran" value="Submit" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"></div>
                         </div>
                     </div>
                 </div>
@@ -255,47 +350,6 @@
                 <div class="bayar-con">
                     <a href="" class="bayar"><b>bayar</b></a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- modal foto meteran air -->
-    <div class="modal fade" id="fotometeran" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">
-                        Foto Meteran Air
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="border-3 border-p mt-2">Edit Foto Meteran Air</h6>
-                            </div>
-                            <div class="col-sm-9">
-                                <form action="" method="POST" id="form" enctype="multipart/form-data">
-                                    <div class="mb-2 row">
-                                        <label for="myImage" class="col-sm-3 col-form-label label-modal">Foto</label>
-                                        <div class="col-sm-9">
-                                            <img src="{{ asset('img/profile.jpg') }}" alt="" width="80" height="80" id="preImg" class="rounded" />
-                                            <input type="file" class="form-control form-control-sm" id="myImage" name="myImage" required />
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-2 row d-flex justify-content-end">
-                                        <div class="col-sm-3 text-end">
-                                            <input class="btn btn-outline-p" type="submit" name="submitfotometeran" id="submitfotometeran" value="Submit" />
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer"></div>
             </div>
         </div>
     </div>

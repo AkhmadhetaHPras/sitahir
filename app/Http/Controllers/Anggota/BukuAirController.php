@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Anggota;
 use App\Models\BukuAir;
 use App\Models\Instalasi;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class BukuAirController extends Controller
 {
@@ -27,5 +29,30 @@ class BukuAirController extends Controller
             ->paginate(12);
 
         return view('anggota.bukuair', compact('bukuairs'));
+    }
+
+    public function uploadfoto(Request $request, $id)
+    {
+        $request->validate([
+            'inputfotometeran' . $id => 'required|image'
+        ]);
+
+        $bukuair = BukuAir::with('anggota')->find($id);
+        $anggota = Anggota::find($bukuair->id_anggota);
+
+        if ($bukuair->foto &&  !(is_null($bukuair->foto)) && file_exists(storage_path('app/public/' . $bukuair->foto))) {
+            Storage::delete('public/' . $bukuair->foto);
+        }
+        $extension = $request->file('inputfotometeran' . $id)->getClientOriginalExtension();
+        $filenameSimpan = $bukuair->tahun . '_' . $bukuair->bulan . '_' . $anggota->nama . '_' . time() . '.' . $extension;
+        $path = $request->file('inputfotometeran' . $id)->storeAs('public/img/bukuair', $filenameSimpan);
+        $savepath = 'img/bukuair/' . $filenameSimpan;
+
+        $bukuair->foto = $savepath;
+        $bukuair->status = 'Uploaded';
+        $bukuair->save();
+
+        return Redirect::back()
+            ->with('bukuairsuccess', 'Foto Meteran Air Berhasil Diupload');
     }
 }
