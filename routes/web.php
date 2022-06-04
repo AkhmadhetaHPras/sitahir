@@ -38,26 +38,31 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function () {
 // for ADMIN and Pengurus
 Route::group(['middleware' => ['auth', 'role:admin|pengurus']], function () {
     Route::get('/anggota', function () {
-        return view('dashboard');
+        return view('admin.anggota');
     })->name('anggota');
     Route::get('/bukuairanggota', function () {
-        return view('dashboard');
+        return view('admin.bukuairanggota');
     })->name('bukuairanggota');
     Route::get('/anggaranlistrik', function () {
         return view('dashboard');
     })->name('anggaranlistrik');
     Route::get('/tanggapikeluhan', function () {
-        return view('dashboard');
+        return view('admin.tanggapikeluhan');
     })->name('tanggapikeluhan');
     Route::get('/pengumuman', function () {
-        return view('dashboard');
+        return view('admin.pengumuman');
     })->name('pengumuman');
     Route::get('/instalasianggota', function () {
-        return view('dashboard');
+        return view('admin.transaksiinstalasi');
     })->name('instalasianggota');
     Route::get('/tarif', function () {
-        return view('dashboard');
+        return view('admin.kelolatarif');
     })->name('tarif');
+
+    // buku air anggota detail belum fix, cuma routenya aja
+    Route::get('/bukuairanggota/detail', function () {
+        return view('admin.bukuairanggotadetail');
+    })->name('bukuairanggotadetail');
 });
 
 // for PENGURUS

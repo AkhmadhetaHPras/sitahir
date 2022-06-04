@@ -147,15 +147,15 @@
             </a>
             <span class="tooltip">Anggota</span>
         </li>
-        <li class="{{ (request()->is('bukuairanggota')) ? 'active' : '' }}">
-            <a href="{{ route('bukuairanggota') }}">
+        <li class="{{ (request()->is('instalasianggota')) ? 'active' : '' }}">
+            <a href="{{ route('instalasianggota') }}">
                 <i class="las la-tools"></i>
                 <span class="links_name">Instalasi Anggota</span>
             </a>
             <span class="tooltip">Instalasi Anggota</span>
         </li>
-        <li class="{{ (request()->is('instalasianggota')) ? 'active' : '' }}">
-            <a href="{{ route('instalasianggota') }}">
+        <li class="{{ (request()->is('bukuairanggota')) ? 'active' : '' }}">
+            <a href="{{ route('bukuairanggota') }}">
                 <i class="las la-book"></i>
                 <span class="links_name">Buku Air Anggota</span>
             </a>

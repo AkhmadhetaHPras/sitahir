@@ -166,7 +166,50 @@
     </div>
     @endif
 
-    @if(Auth::user()->hasRole('admin') or Auth::user()->hasRole('pengurus'))
+    @if(Auth::user()->hasRole('admin'))
+    <!-- Tabel Anggota Nunggak -->
+    <div class="container-fluid tabel-anggota">
+    <h5 class="overview-title mb-3 ps-0 mt-5">
+      <span class="border-3 border-bottom border-primary">Daftar Anggota belum bayar bulan Maret 2022</span>
+    </h5>
+
+    <div class="table-responsive-sm">
+        <table class="table table-hover tb-nunggak">
+          <thead class="thead-dark thead-tb-nunggak">
+            <tr>
+              <th scope="col">NAMA ANGGOTA</th>
+              <th scope="col">ALAMAT</th>
+              <th scope="col">NO.WHATSAPP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ahmad Rafif Alaudin</td>
+              <td>Jalan Anggraini RT.08/RW.02</td>
+              <td><a href="" class="no-wa"> <i class="lab la-whatsapp" style="color:#075e54;font-size:20px;"></i>
+                089620423459</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Ahmad Rafif Alaudin</td>
+              <td>Jalan Anggraini RT.08/RW.02</td>
+              <td><a href="" class="no-wa"> <i class="lab la-whatsapp" style="color:#075e54;font-size:20px;"></i>
+                089620423459</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Ahmad Rafif Alaudin</td>
+              <td>Jalan Anggraini RT.08/RW.02</td>
+              <td><a href="" class="no-wa"> <i class="lab la-whatsapp" style="color:#075e54;font-size:20px;"></i>
+                  089620423459</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    @endif
+
+    @if(Auth::user()->hasRole('pengurus'))
     <h1>Anda {{ Auth::user()->roles->first()->display_name }}</h1>
     @endif
 </x-app-layout>
