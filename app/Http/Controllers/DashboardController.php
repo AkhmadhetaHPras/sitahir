@@ -9,28 +9,35 @@ use App\Models\Instalasi;
 use App\Models\Pengumuman;
 use App\Models\Pengurus;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $month = Carbon::parse(now())->month;
-        $year = Carbon::parse(now())->year;
+        $maxyear = BukuAir::select(DB::raw('max(tahun) as tahun'))->first();
+        $maxmonth = BukuAir::select('tahun', DB::raw('max(bulan) as bulan'))
+            ->groupBy('tahun')
+            ->where('tahun', $maxyear->tahun)
+            ->get();
+
+        $bulan = $maxmonth->get(0)->bulan;
+        $tahun = $maxmonth->get(0)->tahun;
 
         $kubikprev = BukuAir::select("bulan", "tahun", DB::raw("sum(kubik) as kubik"))
             ->groupBy(DB::raw("bulan"), DB::raw('tahun'))
-            ->where('bulan', $month - 1)
-            ->where('tahun', $year)
+            ->where('bulan', $bulan - 1)
+            ->where('tahun', $tahun)
             ->get();
 
         $kubiknow = BukuAir::select("bulan", "tahun", DB::raw("sum(kubik) as kubik"))
             ->groupBy(DB::raw("bulan"), DB::raw('tahun'))
-            ->where('bulan', $month)
-            ->where('tahun', $year)
+            ->where('bulan', $bulan)
+            ->where('tahun', $tahun)
             ->get();
 
 
@@ -85,18 +92,43 @@ class DashboardController extends Controller
                 'nama' => 'required',
                 'alamat' => 'required',
                 'nowa' => 'required',
-                'foto' => 'required',
+                'foto' => 'image|nullable',
             ]);
 
             // get data pengurus
             $profile = Pengurus::where('id_users', $user->id)->first();
 
             // validation if user change credentials
+            if (isset($request->checkChangeCredentials)) {
+                $request->validate([
+                    'username' => ['required', 'string', 'max:255', 'unique:users'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'current_password' => ['required', 'confirmed', Rules\Password::defaults()],
+                    'newpassword' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
+            }
 
             // update data
             $profile->nama = $request->get('nama');
             $profile->alamat = $request->get('alamat');
             $profile->nowa = $request->get('nowa');
+
+            if ($request->hasFile('foto')) {
+                // ada file yang diupload
+                if ($profile->foto && $profile->foto != 'img/profile/default.png' && file_exists(storage_path('app/public/' . $profile->foto))) {
+                    Storage::delete('public/' . $profile->foto);
+                }
+                $filenameWithExt = $request->file('foto')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('foto')->getClientOriginalExtension();
+                $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+                $path = $request->file('foto')->storeAs('public/img/profile/pengurus', $filenameSimpan);
+                $savepath = 'img/profile/pengurus/' . $filenameSimpan;
+            } else {
+                // tidak ada file yang diupload
+                $savepath = $profile->foto;
+            }
+            $profile->foto = $savepath;
 
             // save
             $profile->save();

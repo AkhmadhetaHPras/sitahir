@@ -135,7 +135,7 @@
                                     <div class="accordion-body">
                                         {{ $p->isi }}
                                         @if(!is_null($p->file))
-                                        <br><a href="{{ $p->file }}">Unduh file</a>
+                                        <br><a href="{{ $p->file }}" target='_blank'>Unduh file</a>
                                         @endif
 
                                     </div>

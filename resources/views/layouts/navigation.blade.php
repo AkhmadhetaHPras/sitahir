@@ -259,7 +259,7 @@
                                     <label for="foto" class="col-sm-4 col-form-label label-modal">Foto</label>
                                     <div class="col-sm-8">
                                         <img src="{{ asset('storage/'.$profile->foto) }}" alt="" width="80" height="80" id="preImg" class="rounded">
-                                        <input type="file" class="form-control form-control-sm" id="foto" name="foto" required>
+                                        <input type="file" class="form-control form-control-sm" id="foto" name="foto">
                                     </div>
                                 </div>
                                 <div class="mb-2 row">
@@ -298,38 +298,43 @@
                                 @endif
 
                                 <div class="mb-5">
-                                    <a class="" data-bs-toggle="collapse" data-bs-target="#changeCredentials" aria-expanded="false" aria-controls="collapseExample">
-                                        Change Credentials
-                                    </a>
+                                    <div class="form-check d-flex justify-content-end mb-2">
+                                        <input type="checkbox" id="checkChangeCredentials" name='checkChangeCredentials' data-bs-toggle="collapse" data-bs-target="#changeCredentials" aria-expanded="false" aria-controls="collapseExample">
+                                        <label for="checkChangeCredentials">
+                                            Change Credentials
+                                        </label>
+                                    </div>
                                     <div class="collapse" id="changeCredentials">
                                         <div class="mb-2 row">
                                             <label for="email" class="col-sm-4 col-form-label">Email</label>
                                             <div class="col-sm-8">
-                                                <input type="email" class="form-control form-control-sm" id="email" name="email" maxlength="50" required value="{{ Auth::user()->email }}">
+                                                <input type="email" class="form-control form-control-sm" id="email" name="email" required value="{{ Auth::user()->email }}">
                                             </div>
                                         </div>
                                         <div class="mb-2 row d-flex align-items-center">
                                             <label for="username" class="col-sm-4 col-form-label">Username</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control form-control-sm" id="username" name="username" maxlength="50" required value="{{ Auth::user()->username }}">
+                                                <input type="text" class="form-control form-control-sm" id="username" name="username" required value="{{ Auth::user()->username }}">
                                             </div>
                                         </div>
+
                                         <div class="mb-2 row d-flex align-items-center">
                                             <label for="current_password" class="col-sm-4 col-form-label">Current Password</label>
                                             <div class="col-sm-8">
-                                                <input type="password" class="form-control form-control-sm" id="current_password" name="current_password" maxlength="50">
+                                                <input type="hidden" class="form-control form-control-sm" id="current_password" name="current_password" value="{{ Auth::user()->password }}">
+                                                <input type="password" class="form-control form-control-sm" id="current_password_validation" name="current_password_validation">
                                             </div>
                                         </div>
                                         <div class="mb-2 row d-flex align-items-center">
                                             <label for="newpassword" class="col-sm-4 col-form-label">New Password</label>
                                             <div class="col-sm-8">
-                                                <input type="password" class="form-control form-control-sm" id="newpassword" name="newpassword" maxlength="50">
+                                                <input type="password" class="form-control form-control-sm" id="newpassword" name="newpassword">
                                             </div>
                                         </div>
                                         <div class="mb-2 row d-flex align-items-center">
                                             <label for="password_confirmation" class="col-sm-4 col-form-label">Password Confirmation</label>
                                             <div class="col-sm-8">
-                                                <input type="password" class="form-control form-control-sm" id="password_confirmation" name="password_confirmation" maxlength="50">
+                                                <input type="password" class="form-control form-control-sm" id="newpassword_confirmation" name="newpassword_confirmation">
                                             </div>
                                         </div>
                                     </div>
