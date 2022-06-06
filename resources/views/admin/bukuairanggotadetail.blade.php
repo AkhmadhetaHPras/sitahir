@@ -1,17 +1,14 @@
 <x-app-layout>
-    <div class="container buku-air pt-3">
+    <div class="container-fluid buku-air">
         <!-- nav -->
         <nav class="navbar navbar-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('bukuairanggota') }}"><i class="las la-arrow-left"
-                        style="font-size:2rem"></i></a>
-                <form class="d-flex">
-                    <h5>Ahmad Rafif</h5>
-                </form>
-            </div>
+            <a class="navbar-brand" href="{{ route('bukuairanggota') }}"><i class="las la-arrow-left" style="font-size:2rem"></i></a>
+            <form class="d-flex">
+                <h5>Ahmad Rafif</h5>
+            </form>
         </nav>
         <!-- nav end -->
-    
+
         <div class="row">
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
                 <!-- status lunas -->
@@ -43,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- status kosong -->
                 <div class="row mb-2">
                     <div class="col-12 d-flex">
@@ -58,7 +55,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="buku-air-second-col col-md-6 col-12 ps-0">
                 <!-- status belum lunas -->
                 <div class="row mb-2 pe-0">
@@ -83,8 +80,7 @@
                                     </div>
                                     <!-- button delete dan edit -->
                                     <div class="col d-flex justify-content-center">
-                                        <i class="lar la-edit" style="font-size: 1.5rem;" data-bs-toggle="modal"
-                                            data-bs-target="#editdatameteran"></i>
+                                        <i class="lar la-edit" style="font-size: 1.5rem;" data-bs-toggle="modal" data-bs-target="#editdatameteran"></i>
                                         <i class="lar la-trash-alt" style="font-size: 1.5rem;"></i>
                                     </div>
                                 </div>
@@ -101,8 +97,7 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2 d-flex align-items-center">
                                 <div class="row row-air text-center">
-                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal"
-                                        data-bs-target="#tambahdatameteran">
+                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#tambahdatameteran">
                                         TAMBAH DATA
                                     </h3>
                                 </div>
@@ -114,10 +109,9 @@
         </div>
     </div>
     <!-- buku air end -->
-    
+
     <!-- modal Tambah Data -->
-    <div class="modal fade" id="tambahdatameteran" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">>
+    <div class="modal fade" id="tambahdatameteran" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,11 +134,10 @@
         </div>
     </div>
     <!-- modal tambah data meteran end -->
-    
-    
+
+
     <!-- modal edit Data meteran air -->
-    <div class="modal fade" id="editdatameteran" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">>
+    <div class="modal fade" id="editdatameteran" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
