@@ -8,16 +8,20 @@
         Tambah Anggota
       </button>
       <br><br>
+
       <table class="table table-bordered">
         <tr class="header">
           <td>NAMA ANGGOTA</td>
           <td>ALAMAT</td>
           <td width="300px"></td>
         </tr>
-
+        
+        @foreach ($paginate as $ang)
         <tr class="content">
-          <td>Ahmad Rafif Alaudin</td>
-          <td>Jalam Anggraini RT 08/RW 02</td>
+        <td>{{ $ang ->nama }}</td>
+        <td>{{ $ang ->alamat }}</td>
+          <!-- <td>Ahmad Rafif Alaudin</td>
+          <td>Jalam Anggraini RT 08/RW 02</td> -->
           <td>
             <form>
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#detail">
@@ -30,7 +34,9 @@
             </form>
           </td>
         </tr>
+        @endforeach
       </table>
+      {!! $paginate->links() !!}
     </div>
 
     <!-- modal tambah -->

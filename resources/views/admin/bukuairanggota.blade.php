@@ -16,17 +16,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach ($bukuairanggota as $bk)
                     <tr class="content">
-                        <td>Ahmad Rafif A.</td>
+                        <td>{{ $bk ->anggota->nama }}</td>
+                        <td>{{ $bk ->meteran_air }}</td>
+                        <td>{{ $bk ->kubik }}</td>
+                        <td>{{ $bk ->tarif }}</td>
+                        <!-- <td>Ahmad Rafif A.</td>
                         <td>998</td>
                         <td>12</td>
-                        <td>Rp. 30.000</td>
+                        <td>Rp. 30.000</td> -->
                         <td>
                             <a href="{{ route('bukuairanggotadetail') }}"><button class=" btn btn-warning ">DETAILS</button></a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
+            {!! $paginate->links() !!}
         </div>
     </div>
 </x-app-layout>

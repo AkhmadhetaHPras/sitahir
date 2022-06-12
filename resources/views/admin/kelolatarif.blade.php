@@ -54,9 +54,12 @@
           </tr>
         </thead>
         <tbody>
+        @foreach ($paginate as $tr)
           <tr>
-            <td>0</td>
-            <td>5000</td>
+            <td>{{ $tr ->kubik }}</td>
+            <td>{{ $tr ->tarif }}</td>
+            <!-- <td>0</td>
+            <td>5000</td> -->
             <td>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTarifModal">
                 EDIT
@@ -64,7 +67,7 @@
               <button class="btn btn-danger" type="button">HAPUS</button>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>1</td>
             <td>6000</td>
             <td>
@@ -74,8 +77,8 @@
               <button class="btn btn-danger" type="button">HAPUS</button>
             </td>
           </tr>
-          <tr>
-            <td>3</td>
+          <tr> -->
+            <!-- <td>3</td>
             <td>8000</td>
             <td>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTarifModal">
@@ -92,10 +95,11 @@
                 EDIT
               </button>
               <button class="btn btn-danger" type="button">HAPUS</button>
-            </td>
-          </tr>
+            </td> -->
+          </tr>@endforeach
         </tbody>
       </table>
+      {!! $paginate->links() !!}
     </div>
 
     <!------ Modal Edit Tarif  -->
