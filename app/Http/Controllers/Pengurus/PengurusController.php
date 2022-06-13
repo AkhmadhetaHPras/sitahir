@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pengurus;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Models\AnggaranListrik;
-use App\Models\Instalasi;
-use App\Models\Keluhan;
-use Carbon\Carbon;
+use App\Models\Pengurus;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class AnggaranListrikController extends Controller
+class PengurusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,23 +15,10 @@ class AnggaranListrikController extends Controller
      */
     public function index()
     {
-        $data = AnggaranListrik::orderBy('tahun', 'desc')
-            ->orderBy('bulan', 'desc')
-            ->paginate(12);
-
-        $bulan = Carbon::now()->month;
-        $tahun = Carbon::now()->year;
-
-        $datatambah = AnggaranListrik::orderBy('tahun', 'desc')
-            ->orderBy('bulan', 'desc')
-            ->first();
-        if ($datatambah->bulan == $bulan and $datatambah->tahun == $tahun) {
-            $tambah = 'false';
-        } else {
-            $tambah = 'true';
-        }
-
-        return view('admin.anggaranlistrik', compact('data', 'tambah'));
+        $paginate = Pengurus::orderBy('id', 'asc')
+            ->with('user')
+            ->paginate(10);
+        return view('pengurus.pengurus', compact('paginate'));
     }
 
     /**

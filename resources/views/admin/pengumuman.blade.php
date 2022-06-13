@@ -4,9 +4,11 @@
       <h5 class="buku-air-title mb-3 ps-0">
         <span class="border-3 border-bottom border-primary">Pengumuman</span>
       </h5>
+      @if(Auth::user()->hasRole('admin'))
       <button type="button" class="btn tambah mb-3 mt-4 col-md-3 col-sm-4 col-12" data-bs-toggle="modal" data-bs-target="#tambahpengumuman">
         Tambah Pengumuman
       </button>
+      @endif
       <br><br>
       <table class="table table-bordered">
         <tr class="header">
@@ -18,20 +20,21 @@
         <tr class="content">
           <td>{{ $pg ->judul }}</td>
           <td><a href='#'>{{ $pg ->file }}</a></td>
-          <!-- <td>Batas Pembayaran Tanggal 10-24</td>
-          <td><a href="#">preview</a></td> -->
           <td>
             <form class="text-start">
               <button type="button" class="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#detailpengumuman">
                 DETAIL
               </button>
+              @if(Auth::user()->hasRole('admin'))
               <button type="button" class="btn edit me-1" data-bs-toggle="modal" data-bs-target="#editpengumuman">
                 EDIT
               </button>
               <button class="btn btn-danger">HAPUS</button>
+              @endif
             </form>
           </td>
-        </tr>@endforeach
+        </tr>
+        @endforeach
       </table>
       {!! $paginate->links() !!}
     </div>

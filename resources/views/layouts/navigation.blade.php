@@ -64,7 +64,7 @@
                 <!-- for PENGURUS user -->
                 @if(Auth::user()->hasRole('pengurus'))
                 <li class="nav-item">
-                    <a class="nav-link {{ (request()->is('pengurus')) ? 'active' : '' }}" href="{{ route('pengurus') }}">Pengurus</a>
+                    <a class="nav-link {{ (request()->is('pengurus')) ? 'active' : '' }}" href="{{ route('pengurus.index') }}">Pengurus</a>
                 </li>
                 @endif
                 @endif
@@ -194,7 +194,7 @@
         <!-- for PENGURUS user -->
         @if(Auth::user()->hasRole('pengurus'))
         <li class="{{ (request()->is('pengurus')) ? 'active' : '' }}">
-            <a href="{{ route('pengurus') }}">
+            <a href="{{ route('pengurus.index') }}">
                 <i class="las la-user-tie"></i>
                 <span class="links_name">Pengurus</span>
             </a>
