@@ -40,10 +40,10 @@
                 <!-- for ADMIN and PENGURUS user -->
                 @if((Auth::user()->hasRole('admin')) or (Auth::user()->hasRole('pengurus')))
                 <li class="nav-item">
-                    <a class="nav-link {{ (request()->is('anggota')) ? 'active' : '' }}" href="{{ route('anggota') }}">Anggota</a>
+                    <a class="nav-link {{ (request()->is('anggota')) ? 'active' : '' }}" href="{{ route('anggota.index') }}">Anggota</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ (request()->is('bukuairanggota')) ? 'active' : '' }}" href="{{ route('bukuairanggota') }}">Buku Air Anggota</a>
+                    <a class="nav-link {{ (request()->is('bukuairanggota')) ? 'active' : '' }}" href="{{ route('bukuairanggota.index') }}">Buku Air Anggota</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ (request()->is('anggaranlistrik')) ? 'active' : '' }}" href="{{ route('anggaranlistrik') }}">Anggaran Listrik</a>
@@ -52,13 +52,13 @@
                     <a class="nav-link {{ (request()->is('tanggapikeluhan')) ? 'active' : '' }}" href="{{ route('tanggapikeluhan') }}">Tanggapi Keluhan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ (request()->is('pengumuman')) ? 'active' : '' }}" href="{{ route('pengumuman') }}">Pengumuman</a>
+                    <a class="nav-link {{ (request()->is('pengumuman')) ? 'active' : '' }}" href="{{ route('pengumuman.index') }}">Pengumuman</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ (request()->is('instalasianggota')) ? 'active' : '' }}" href="{{ route('instalasianggota') }}">Instalasi Anggota</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ (request()->is('tarif')) ? 'active' : '' }}" href="{{ route('tarif') }}">Tarif</a>
+                    <a class="nav-link {{ (request()->is('tarif')) ? 'active' : '' }}" href="{{ route('tarif.index') }}">Tarif</a>
                 </li>
                 @endif
                 <!-- for PENGURUS user -->
@@ -141,7 +141,7 @@
         <!-- for ADMIN user -->
         @if((Auth::user()->hasRole('admin')) or (Auth::user()->hasRole('pengurus')))
         <li class="{{ (request()->is('anggota')) ? 'active' : '' }}">
-            <a href="{{ route('anggota') }}">
+            <a href="{{ route('anggota.index') }}">
                 <i class="las la-user"></i>
                 <span class="links_name">Anggota</span>
             </a>
@@ -155,7 +155,7 @@
             <span class="tooltip">Instalasi Anggota</span>
         </li>
         <li class="{{ (request()->is('bukuairanggota')) ? 'active' : '' }}">
-            <a href="{{ route('bukuairanggota') }}">
+            <a href="{{ route('bukuairanggota.index') }}">
                 <i class="las la-book"></i>
                 <span class="links_name">Buku Air Anggota</span>
             </a>
@@ -176,14 +176,14 @@
             <span class="tooltip">Tanggapi Keluhan</span>
         </li>
         <li class="{{ (request()->is('pengumuman')) ? 'active' : '' }}">
-            <a href="{{ route('pengumuman') }}">
+            <a href="{{ route('pengumuman.index') }}">
                 <i class="las la-bullhorn"></i>
                 <span class="links_name">Pengumuman</span>
             </a>
             <span class="tooltip">Pengumuman</span>
         </li>
         <li class="{{ (request()->is('tarif')) ? 'active' : '' }}">
-            <a href="{{ route('tarif') }}">
+            <a href="{{ route('tarif.index') }}">
                 <i class="las la-tags"></i>
                 <span class="links_name">Tarif</span>
             </a>

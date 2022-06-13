@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\Anggota\AjukanKeluhanController;
 use App\Http\Controllers\Anggota\BukuAirController;
+use App\Http\Controllers\Admin\BukuController;
+use App\Http\Controllers\Admin\PengumumanController;
+use App\Http\Controllers\Admin\KelolaTarifController;
+use App\Http\Controllers\Admin\TanggapiKeluhanController;
+use App\Http\Controllers\Admin\AnggotaController;
 use App\Http\Controllers\Anggota\InstalasiAnggotaController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -55,27 +60,17 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function () {
 
 // for ADMIN and Pengurus
 Route::group(['middleware' => ['auth', 'role:admin|pengurus']], function () {
-    Route::get('/anggota', function () {
-        return view('admin.anggota');
-    })->name('anggota');
-    Route::get('/bukuairanggota', function () {
-        return view('admin.bukuairanggota');
-    })->name('bukuairanggota');
+    Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
+    Route::get('/bukuairanggota', [BukuController::class, 'index'])->name('bukuairanggota.index');
     Route::get('/anggaranlistrik', function () {
         return view('dashboard');
     })->name('anggaranlistrik');
-    Route::get('/tanggapikeluhan', function () {
-        return view('admin.tanggapikeluhan');
-    })->name('tanggapikeluhan');
-    Route::get('/pengumuman', function () {
-        return view('admin.pengumuman');
-    })->name('pengumuman');
+    Route::get('/tanggapikeluhan',[TanggapiKeluhanController::class, 'index'])->name('tanggapikeluhan');
+    Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman.index');
     Route::get('/instalasianggota', function () {
         return view('admin.transaksiinstalasi');
     })->name('instalasianggota');
-    Route::get('/tarif', function () {
-        return view('admin.kelolatarif');
-    })->name('tarif');
+    Route::get('/tarif', [KelolaTarifController::class, 'index'])->name('tarif.index');
 
     // buku air anggota detail belum fix, cuma routenya aja
     Route::get('/bukuairanggota/detail', function () {
