@@ -40,7 +40,7 @@
                                         </label>
                                         <input class="form-control" type="file" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" onchange="form.submit()" style="display: none" />
                                         <p class="ket mb-0">
-                                            Lakukan upload foto meteran air pada tangal 1 - 9
+                                            Lakukan unggah foto meteran air pada tangal 1 - 9
                                         </p>
                                     </form>
                                 </div>
@@ -54,7 +54,7 @@
                 <div class="row mb-2 pe-0">
                     <div class="col-12 d-flex">
                         <h6 class="month-name mt-1">
-                            <b>JAN</b>
+                            <b>{{ strtoupper(substr(date('F', mktime(0, 0, 0, $b->bulan, 10)), 0, 3)) }}</b>
                         </h6>
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2 d-flex align-items-center">
@@ -62,7 +62,7 @@
                                     <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#fotometeran{{$b->id}}">
                                         LIHAT FOTO
                                     </h3>
-                                    <p class="ket mb-0">Lihat foto yang telah anda upload</p>
+                                    <p class="ket mb-0">Lihat foto yang telah anda uanggah</p>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                 <div class="row mb-2 pe-0">
                     <div class="col-12 d-flex">
                         <h6 class="month-name mt-1">
-                            <b>JAN</b>
+                            <b>{{ strtoupper(substr(date('F', mktime(0, 0, 0, $b->bulan, 10)), 0, 3)) }}</b>
                         </h6>
                         <div class="card card-penggunaan-air-bulan bg-white">
                             <div class="card-body d-flex align-items-center">
@@ -193,11 +193,11 @@
                                         @csrf
                                         @method('PUT')
                                         <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
-                                            <h3 class="mb-0">UPLOAD</h3>
+                                            <h3 class="mb-0">UNGGAH</h3>
                                         </label>
                                         <input class="form-control" type="file" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" onchange="form.submit()" style="display: none" />
                                         <p class="ket mb-0">
-                                            Lakukan upload foto meteran air pada tangal 1 - 9
+                                            Lakukan unggah foto meteran air pada tangal 1 - 9
                                         </p>
                                     </form>
                                 </div>
@@ -211,7 +211,7 @@
                 <div class="row mb-2 pe-0">
                     <div class="col-12 d-flex">
                         <h6 class="month-name mt-1">
-                            <b>JAN</b>
+                            <b>{{ strtoupper(substr(date('F', mktime(0, 0, 0, $b->bulan, 10)), 0, 3)) }}</b>
                         </h6>
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2 d-flex align-items-center">
@@ -219,7 +219,7 @@
                                     <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#fotometeran{{$b->id}}">
                                         LIHAT FOTO
                                     </h3>
-                                    <p class="ket mb-0">Lihat foto yang telah anda upload</p>
+                                    <p class="ket mb-0">Lihat foto yang telah anda unggah</p>
                                 </div>
                             </div>
                         </div>
@@ -269,19 +269,19 @@
                 <div class="row mb-2 pe-0">
                     <div class="col-12 d-flex">
                         <h6 class="month-name mt-1">
-                            <b>JAN</b>
+                            <b>{{ strtoupper(substr(date('F', mktime(0, 0, 0, $b->bulan, 10)), 0, 3)) }}</b>
                         </h6>
                         <div class="card card-penggunaan-air-bulan bg-white">
                             <div class="card-body d-flex align-items-center">
                                 <div class="row row-air">
                                     <div class="meteran-air col d-flex justify-content-center">
-                                        998
+                                        {{ $b->meteran_air }}
                                     </div>
                                     <div class="kubik-penggunaan col d-flex justify-content-center">
-                                        15
+                                        {{ $b->kubik }}
                                     </div>
                                     <div class="tarif col d-flex justify-content-center">
-                                        30000
+                                        {{ $b->tarif }}
                                     </div>
                                     <div class="ket col d-flex justify-content-center text-danger">
                                         BELUM

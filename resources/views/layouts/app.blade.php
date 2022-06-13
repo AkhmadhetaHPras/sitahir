@@ -61,6 +61,24 @@
         });
     </script>
     @endif
+
+    <!-- modal tambah anggota (admin) -->
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 8)
+    <script>
+        $(function() {
+            $('#tambah').modal('show');
+        });
+    </script>
+    @endif
+
+    <!-- modal edit anggota (admin) -->
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 9)
+    <script>
+        $(function() {
+            $('#edit' + "{{ Session::get('id') }}").modal('show');
+        });
+    </script>
+    @endif
 </body>
 
 </html>

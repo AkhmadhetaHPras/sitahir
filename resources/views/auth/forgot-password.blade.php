@@ -8,7 +8,7 @@
 
         <div class="card-body">
             <div class="mb-4">
-                {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                {{ __('Lupa kata sandi Anda? Tidak masalah. Cukup beri tahu kami alamat email Anda dan kami akan mengirim email kepada Anda tautan pengaturan ulang kata sandi yang memungkinkan Anda memilih yang baru.') }}
             </div>
 
             <div class="card-body">
@@ -19,9 +19,9 @@
                 <x-auth-validation-errors class="mb-3" :errors="$errors" />
 
                 <form method="POST" action="{{ route('password.email') }}">
-                @csrf
+                    @csrf
 
-                <!-- Email Address -->
+                    <!-- Email Address -->
                     <div class="mb-3">
                         <x-label for="email" :value="__('Email')" />
 
@@ -30,7 +30,7 @@
 
                     <div class="d-flex justify-content-end mt-4">
                         <x-button>
-                            {{ __('Email Password Reset Link') }}
+                            {{ __('Tautan Atur Ulang Kata Sandi Email') }}
                         </x-button>
                     </div>
                 </form>

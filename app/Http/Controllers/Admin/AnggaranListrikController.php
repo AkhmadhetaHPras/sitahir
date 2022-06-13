@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\AnggaranListrik;
 use App\Models\Instalasi;
 use App\Models\Keluhan;
 use Carbon\Carbon;
@@ -19,7 +20,21 @@ class AnggaranListrikController extends Controller
      */
     public function index()
     {
-        //
+        $data = AnggaranListrik::paginate(12);
+
+        $bulan = Carbon::now()->month;
+        $tahun = Carbon::now()->year;
+
+        $datatambah = AnggaranListrik::orderBy('tahun', 'desc')
+            ->orderBy('bulan', 'desc')
+            ->first();
+        if ($datatambah->bulan == $bulan and $datatambah->tahun == $tahun) {
+            $tambah = 'false';
+        } else {
+            $tambah = 'true';
+        }
+
+        return view('admin.anggaranlistrik', compact('data', 'tambah', 'bulan'));
     }
 
     /**

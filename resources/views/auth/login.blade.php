@@ -48,7 +48,7 @@
                                     <x-checkbox id="remember_me" name="remember" />
 
                                     <label class="form-check-label" for="remember_me">
-                                        {{ __('Remember Me') }}
+                                        {{ __('Selalu Ingat') }}
                                     </label>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                             <p class="mb-2">Lupa Password ? <a href="{{ route('password.request') }}">Klik disini</a></p>
                             @endif
                             <p class="mb-2">
-                                Belum Punya Akun ? <a href="#">Daftar disini</a>
+                                Belum Punya Akun ? <a href="https://wa.me/6285803056443?text=Untuk%20Melakukan%20Pendaftaran%20Silahkan%20Isi%20Data%20Diri%20Di%20Bawah%0A%0ANama%20%20%20%20%20%20%20%20%20%3A%20%0ANo.%20Whatsapp%20%3A%20%0AAlamat%20%20%20%20%20%20%20%3A%20%0AEmail%20%20%20%20%20%20%20%20%3A%20" target="_blank">Daftar disini</a>
                             </p>
                         </form>
                     </div>

@@ -23,12 +23,12 @@
           <td>
             <form class="text-start">
               <button type="button" class="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#detailpengumuman">
-                DETAILS
+                DETAIL
               </button>
               <button type="button" class="btn edit me-1" data-bs-toggle="modal" data-bs-target="#editpengumuman">
                 EDIT
               </button>
-              <button class="btn btn-danger">DELETE</button>
+              <button class="btn btn-danger">HAPUS</button>
             </form>
           </td>
         </tr>@endforeach

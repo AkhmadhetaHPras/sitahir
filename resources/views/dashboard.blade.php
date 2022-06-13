@@ -4,7 +4,7 @@
         <div class="row">
             <!-- OVERVIEW -->
             <h5 class="overview-title mb-3 ps-0">
-                <span class="border-3 border-bottom border-primary">Overview</span>
+                <span class="border-3 border-bottom border-primary">Ulasan</span>
             </h5>
             <div class="overview col-md-8 col-12">
                 <div class="row">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-md-6 col-12 ps-0 mb-2">
                         <div class="card card-cart p-2">
-                            <h6 class="card-title">Line Cart</h6>
+                            <h6 class="card-title">Diagram</h6>
                             <div class="card-body p-2">
                                 <div class="chart-container">
                                     <canvas id="myChart"></canvas>
@@ -169,7 +169,7 @@
     @if(Auth::user()->hasRole('admin|pengurus'))
     <!-- Tabel Anggota Nunggak -->
     <h5 class="overview-title mb-3 ps-0 mt-5">
-        <span class="border-3 border-bottom border-primary">Daftar Anggota belum bayar bulan Maret 2022</span>
+        <span class="border-3 border-bottom border-primary">Daftar Anggota Belum Bayar Bulan Maret 2022</span>
     </h5>
 
     <div class="table-responsive-sm">

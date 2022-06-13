@@ -15,13 +15,13 @@
     <!-- konten keluhan -->
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active row" id="pills-baru" role="tabpanel" aria-labelledby="baru-tab">
-      @foreach($proses as $p)  
+        @foreach($masuk as $m)
         <div>
           <div class="col-md-7 col-sm-12 col-12 keluhan-masuk">
-            <p class="dalam-proses1">{{ $p->tgl_pengajuan }}</p>
-            <h5 class="dalam-proses2"><b>{{ $p->jenis_keluhan }}</b></h5>
+            <p class="dalam-proses1">{{ $m->tgl_pengajuan }}</p>
+            <h5 class="dalam-proses2"><b>{{ $m->jenis_keluhan }}</b></h5>
             <p class="dalam-proses3">
-            {{ $p->deskripsi }}
+              {{ $m->deskripsi }}
             </p>
             <hr size="4" width="250" />
             <button type="button" class="btn btn-masuk" data-bs-toggle="modal" data-bs-target="#jadwal">
@@ -30,9 +30,11 @@
             <p class="dalam-proses4">Akhmadheta Hafid - Jl,Merdeka No.16 RT 02,RW 01</p>
           </div>
         </div>
-      </div>@endforeach
+        @endforeach
+      </div>
 
       <div class="tab-pane fade" id="pills-proses" role="tabpanel" aria-labelledby="proses-tab">
+        @foreach($proses as $p)
         <div>
           <div class="col-md-7 col-sm-12 col-12 dalam-proses">
             <h6 class="dalam-proses2"><b>13 Maret 2022</b></h6>
@@ -44,10 +46,12 @@
             <p class="dalam-proses4">Akhmadheta Hafid - Jl,Merdeka No.16 RT 02,RW 01</p>
           </div>
         </div>
+        @endforeach
       </div>
 
-      @foreach($selesai as $s)
+
       <div class="tab-pane fade" id="pills-selesai" role="tabpanel" aria-labelledby="selesai-tab">
+        @foreach($selesai as $s)
         <div class="col-md-7 col-sm-12 col-12 dalam-selesai">
           <h5 class="dalam-selesai1"><b>Kerusakan Pipa</b></h5>
           <h5 class="dalam-selesai2">12 MAR 2022</h5>
@@ -58,9 +62,10 @@
           <h5 class="dalam-selesai6">13 MAR 2022</h5>
           <p class="dalam-selesai5">Akhmadheta Hafid - Jl,Merdeka No.16 RT 02,RW 01</p>
         </div>
+        @endforeach
       </div>
     </div>
-  </div>@endforeach
+  </div>
 
   <!-- Modal  -->
   <div class="modal fade" id="jadwal" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">

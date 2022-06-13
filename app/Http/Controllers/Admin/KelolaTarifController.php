@@ -7,6 +7,10 @@ use App\Models\TarifAir;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules;
 
 class KelolaTarifController extends Controller
 {
@@ -18,8 +22,8 @@ class KelolaTarifController extends Controller
     public function index()
     {
         $tarif = TarifAir::all();
-        $paginate = TarifAir::orderBy('id','asc')->paginate(7);
-        return view('admin.kelolatarif',['tarif'=>$tarif,'paginate'=>$paginate]);
+        $paginate = TarifAir::orderBy('id', 'asc')->paginate(10);
+        return view('admin.kelolatarif', ['tarif' => $tarif, 'paginate' => $paginate]);
     }
 
     /**
@@ -29,7 +33,10 @@ class KelolaTarifController extends Controller
      */
     public function create()
     {
-        return view('admin.kelolatarif');
+        // return view('admin.kelolatarif');
+
+        $tarif = TarifAir::all(); // mendapatkan data dari tabel kelas
+        return view('admin.kelolatarif', ['tarif' => $tarif]);
     }
 
     /**
@@ -41,13 +48,20 @@ class KelolaTarifController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Kubik'=>'required',
-            'Tarif'=>'required',
+            'kubik' => 'required',
+            'tarif' => 'required',
         ]);
 
-        TarifAir::create($request->all());
-        return redirect()->route('admin.kelolatarif')
-          ->with('success','Tarif Berhasil Ditambahkan');
+        $tarifair = new TarifAir;
+        $tarifair->kubik = $request->get('kubik');
+        $tarifair->tarif = $request->get('tarif');
+
+        $tarifair->save();
+
+
+
+        return redirect()->route('tarif.index')
+            ->with('success', 'Tarif Berhasil Ditambahkan');
     }
 
     /**
@@ -82,17 +96,29 @@ class KelolaTarifController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'Kubik'=>'required',
-            'Tarif'=>'required',
+        // $request->validate([
+        //     'Kubik' => 'required',
+        //     'Tarif' => 'required',
+        // ]);
+        // TarifAir::where('id', $id)
+        //     ->update([
+        //         'kubik' => $request->kubik,
+        //         'tarif' => $request->tarif,
+        //     ]);
+        // return redirect()->route('admin.kelolatarif')
+        //     ->with('success', 'Tarif Berhasil Diupdate');
+
+        $validator1 = Validator::make($request->all(), [
+            'kubik' => 'required',
+            'tarif' => 'required',
         ]);
-        TarifAir::where('id', $id)
-          ->update([
-              'kubik'=>$request->kubik,
-              'tarif'=>$request->tarif,
-        ]);
-        return redirect()->route('admin.kelolatarif')
-          ->with('success','Tarif Berhasil Diupdate');
+        $tarif = TarifAir::find($id);
+        $tarif->kubik = $request->get('kubik');
+        $tarif->tarif = $request->get('tarif');
+        $tarif->save();
+
+        return Redirect::back()
+            ->with(array('success' => "Tarif berhasil diupdate"));
     }
 
     /**
@@ -103,8 +129,14 @@ class KelolaTarifController extends Controller
      */
     public function destroy($id)
     {
-        TarifAir::where('id', $id)->delete();
-        return redirect()->route('admin.kelolatarif')
-        -> with('success', 'Tarif Berhasil Dihapus');
+        // TarifAir::where('id', $id)->delete();
+        // return redirect()->route('admin.kelolatarif')
+        //     ->with('success', 'Tarif Berhasil Dihapus');
+
+        $tarif = TarifAir::find($id);
+
+        $tarif->delete();
+        return Redirect::back()
+            ->with(array('success' => "Data anggota berhasil dihapus"));
     }
 }

@@ -15,23 +15,21 @@
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
             <form method="POST" action="{{ route('password.confirm') }}">
-            @csrf
+                @csrf
 
-            <!-- Password -->
-            <div class="mb-3">
-                <x-label for="password" :value="__('Password')" />
+                <!-- Password -->
+                <div class="mb-3">
+                    <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
+                    <x-input id="password" type="password" name="password" required autocomplete="current-password" />
+                </div>
 
-            <div class="d-flex justify-content-end mt-4">
-                <x-button class="ms-4">
-                    {{ __('Confirm') }}
-                </x-button>
-            </div>
-        </form>
+                <div class="d-flex justify-content-end mt-4">
+                    <x-button class="ms-4">
+                        {{ __('Konfirmasi') }}
+                    </x-button>
+                </div>
+            </form>
         </div>
     </x-auth-card>
 </x-guest-layout>
