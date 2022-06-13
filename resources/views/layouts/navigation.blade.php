@@ -205,7 +205,7 @@
 
         <!-- for ALL user -->
         <li>
-            <a href="#">
+            <a href="/informasiumum">
                 <i class="las la-question-circle"></i>
                 <span class="links_name">Bantuan</span>
             </a>

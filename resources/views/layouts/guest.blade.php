@@ -8,7 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/logo.png') }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'SITAHIR') }}</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">

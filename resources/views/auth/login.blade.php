@@ -86,7 +86,7 @@
                             </p>
                             <p class="mt-2">
                                 Informasi lebih lanjut klik
-                                <a href="informasiumum.html">di sini</a>
+                                <a href="/informasiumum">di sini</a>
                             </p>
                         </div>
                     </div>

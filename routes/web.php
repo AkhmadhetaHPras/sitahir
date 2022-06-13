@@ -22,6 +22,16 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/informasiumum', function () {
+    return view('informasiumum', ['title' => 'informasiumum']);
+});
+Route::get('/panduan', function () {
+    return view('panduan', ['title' => 'panduan']);
+});
+Route::get('/kepengurusan', function () {
+    return view('kepengurusan', ['title' => 'kepengurusan']);
+});
+
 // for all roles
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
