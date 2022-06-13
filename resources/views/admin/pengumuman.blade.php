@@ -14,10 +14,12 @@
           <td>FILE</td>
           <td width="400px">AKSI</td>
         </tr>
-
+        @foreach ($paginate as $pg)
         <tr class="content">
-          <td>Batas Pembayaran Tanggal 10-24</td>
-          <td><a href="#">preview</a></td>
+          <td>{{ $pg ->judul }}</td>
+          <td><a href='#'>{{ $pg ->file }}</a></td>
+          <!-- <td>Batas Pembayaran Tanggal 10-24</td>
+          <td><a href="#">preview</a></td> -->
           <td>
             <form class="text-start">
               <button type="button" class="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#detailpengumuman">
@@ -29,8 +31,9 @@
               <button class="btn btn-danger">DELETE</button>
             </form>
           </td>
-        </tr>
+        </tr>@endforeach
       </table>
+      {!! $paginate->links() !!}
     </div>
   </div>
 

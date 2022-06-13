@@ -15,12 +15,13 @@
     <!-- konten keluhan -->
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active row" id="pills-baru" role="tabpanel" aria-labelledby="baru-tab">
+      @foreach($proses as $p)  
         <div>
           <div class="col-md-7 col-sm-12 col-12 keluhan-masuk">
-            <p class="dalam-proses1">12/Mar/2022</p>
-            <h5 class="dalam-proses2"><b>Kerusakan Pipa</b></h5>
+            <p class="dalam-proses1">{{ $p->tgl_pengajuan }}</p>
+            <h5 class="dalam-proses2"><b>{{ $p->jenis_keluhan }}</b></h5>
             <p class="dalam-proses3">
-              Pipa disamping meteran air pecah sepanjang 30 cm
+            {{ $p->deskripsi }}
             </p>
             <hr size="4" width="250" />
             <button type="button" class="btn btn-masuk" data-bs-toggle="modal" data-bs-target="#jadwal">
@@ -29,7 +30,7 @@
             <p class="dalam-proses4">Akhmadheta Hafid - Jl,Merdeka No.16 RT 02,RW 01</p>
           </div>
         </div>
-      </div>
+      </div>@endforeach
 
       <div class="tab-pane fade" id="pills-proses" role="tabpanel" aria-labelledby="proses-tab">
         <div>
@@ -45,6 +46,7 @@
         </div>
       </div>
 
+      @foreach($selesai as $s)
       <div class="tab-pane fade" id="pills-selesai" role="tabpanel" aria-labelledby="selesai-tab">
         <div class="col-md-7 col-sm-12 col-12 dalam-selesai">
           <h5 class="dalam-selesai1"><b>Kerusakan Pipa</b></h5>
@@ -58,7 +60,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>@endforeach
 
   <!-- Modal  -->
   <div class="modal fade" id="jadwal" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true" data-bs-backdrop="false" data-bs-keyboard="false">
