@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\TanggapiKeluhanController;
 use App\Http\Controllers\Admin\AnggotaController;
 use App\Http\Controllers\Anggota\InstalasiAnggotaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Pengurus\PengurusController;
 use Illuminate\Support\Facades\Route;
 
 // first route
@@ -89,9 +90,17 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 // for PENGURUS
 Route::group(['middleware' => ['auth', 'role:pengurus']], function () {
-    Route::get('/pengurus', function () {
-        return view('dashboard');
-    })->name('pengurus');
+    Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
+    Route::get('/bukuairanggota', [BukuController::class, 'index'])->name('bukuairanggota.index');
+    Route::get('/bukuairanggota/{id}', [BukuController::class, 'show'])->name('bukuairanggota.show');
+    Route::get('/anggaranlistrik', [AnggaranListrikController::class, 'index'])->name('anggaranlistrik');
+    Route::get('/tarif', [KelolaTarifController::class, 'index'])->name('tarif.index');
+    Route::get('/tanggapikeluhan', [TanggapiKeluhanController::class, 'index'])->name('tanggapikeluhan');
+    Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman.index');
+    Route::get('/instalasianggota', function () {
+        return view('admin.transaksiinstalasi');
+    })->name('instalasianggota');
+    Route::resource('/pengurus', PengurusController::class);
 });
 
 require __DIR__ . '/auth.php';

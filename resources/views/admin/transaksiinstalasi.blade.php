@@ -22,12 +22,14 @@
     <!-- konten keluhan -->
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active row" id="pills-baru" role="tabpanel" aria-labelledby="baru-tab">
+        @if(Auth::user()->hasRole('admin'))
         <div>
           <button type="button" class="btn baru" data-bs-toggle="modal" data-bs-target="#tambah">
             Tambah Baru
           </button>
           <br><br>
         </div>
+        @endif
         <div>
           <div class="col-md-7 col-sm-12 col-12 ins-baru">
             <h5 class="content1"><b>Muhammad Sadani</b></h5>

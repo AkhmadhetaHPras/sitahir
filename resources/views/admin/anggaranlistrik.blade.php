@@ -4,6 +4,15 @@
             <h5 class="buku-air-title mb-5 ps-0">
                 <span class="border-3 border-bottom border-primary">Anggaran Listrik</span>
             </h5>
+            @if($tambah == 'true' and Auth::user()->hasRole('admin'))
+            <!-- add -->
+            <button type="button" class="btn btn-warning text-dark mb-3 col-12" data-bs-toggle="modal" data-bs-target="#tambahanggaran">
+                <h5 class="mb-0 p-0 border-0">
+                    TAMBAH ANGGARAN
+                </h5>
+                <p class="ket mb-0">Lakukan tambah anggaran pada tanggal 1</p>
+            </button>
+            @endif
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
                 @if($tambah == 'true' )
                 <!-- add -->
@@ -35,8 +44,11 @@
                         <div class="card card-penggunaan-air-bulan bg-white">
                             <div class="card-body d-flex align-items-center">
                                 <div class="row row-air">
-                                    <div class="jumlah-anggaran col d-flex justify-content-center">
-                                        <text style="font-size: 2.3rem;"><b>{{ $d->anggaran }}</b></text>
+                                    <div class="jumlah-anggaran col d-flex justify-content-center align-items-center">
+                                        <b style="font-size: 2.3rem;">{{ $d->anggaran }}</b>
+                                    </div>
+                                    <div class="col d-flex justify-content-center align-items-center">
+                                        <div class="tanggal-bayar">{{ date('d/m/Y',strtotime(substr($d->tgl_bayar,0,10))) }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -56,8 +68,11 @@
                         <div class="card card-penggunaan-air-bulan bg-white">
                             <div class="card-body d-flex align-items-center">
                                 <div class="row row-air">
-                                    <div class="jumlah-anggaran col d-flex justify-content-center">
-                                        <text style="font-size: 2.3rem;"><b>{{ $d->anggaran }}</b></text>
+                                    <div class="jumlah-anggaran col d-flex justify-content-center align-items-center">
+                                        <b style="font-size: 2.3rem;">{{ $d->anggaran }}</b>
+                                    </div>
+                                    <div class="col d-flex justify-content-center align-items-center">
+                                        <div class="tanggal-bayar">{{ date('d/m/Y',strtotime(substr($d->tgl_bayar,0,10))) }}</div>
                                     </div>
                                 </div>
                             </div>

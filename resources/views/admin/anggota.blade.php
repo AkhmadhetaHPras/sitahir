@@ -9,35 +9,39 @@
         <p>{!! $message !!}</p>
       </div>
       @endif
+      @if(Auth::user()->hasRole('admin'))
       <button type="button" class="btn tambah mb-3 mt-4 col-md-3 col-sm-4 col-12" data-bs-toggle="modal" data-bs-target="#tambah">
         Tambah Anggota
       </button>
       <br><br>
-
+      @endif
       <table class="table table-bordered">
         <tr class="header">
+          <td>ID</td>
           <td>NAMA ANGGOTA</td>
           <td>ALAMAT</td>
-          <td width="300px"></td>
+          <td width="300px">AKSI</td>
         </tr>
 
         @foreach ($paginate as $ang)
         <tr class="content">
+          <td>{{ $ang ->id }}</td>
           <td>{{ $ang ->nama }}</td>
           <td>{{ $ang ->alamat }}</td>
-          <!-- <td>Ahmad Rafif Alaudin</td>
-          <td>Jalam Anggraini RT 08/RW 02</td> -->
+
           <td>
             <form action="{{ route('anggota.destroy', $ang->id) }}" method="POST">
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#detail{{$ang->id}}">
+              <button type="button" class="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#detail{{$ang->id}}">
                 DETAIL
-              </button>&emsp;
-              <button type="button" class="btn edit" data-bs-toggle="modal" data-bs-target="#edit{{$ang->id}}">
+              </button>
+              @if(Auth::user()->hasRole('admin'))
+              <button type="button" class="btn edit me-1" data-bs-toggle="modal" data-bs-target="#edit{{$ang->id}}">
                 EDIT
-              </button>&emsp;
+              </button>
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger">HAPUS</button>
+              @endif
             </form>
           </td>
         </tr>
@@ -83,7 +87,7 @@
                       <div class="mb-2 row d-flex align-items-center">
                         <label for="tgl_gabung" class="col-sm-4 col-form-label">Tanggal Gabung</label>
                         <div class="col-sm-8">
-                          <input type="text" class="form-control-plaintext form-control-sm" name="tgl_gabung" value="{{ $ang->alamat }}" readonly>
+                          <input type="text" class="form-control-plaintext form-control-sm" name="tgl_gabung" value="{{ $ang->tgl_gabung }}" readonly>
                         </div>
                       </div>
                       <div class="mb-2 row">

@@ -44,7 +44,9 @@
                                         <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
                                             <h3 class="mb-0">UNGGAH</h3>
                                         </label>
+                                        @if(Auth::user()->hasRole('admin'))
                                         <input class="form-control" type="file" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" onchange="form.submit()" style="display: none" />
+                                        @endif
                                         <p class="ket mb-0">
                                             Lakukan unggah foto meteran air pada tangal 1 - 9
                                         </p>
@@ -92,7 +94,9 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    @if(Auth::user()->hasRole('admin'))
                                     <button type="submit" class="btn btn-success">SIMPAN</button>
+                                    @endif
                                 </div>
                             </form>
                         </div>
@@ -187,7 +191,9 @@
                                         <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
                                             <h3 class="mb-0">UNGGAH</h3>
                                         </label>
+                                        @if(Auth::user()->hasRole('admin'))
                                         <input class="form-control" type="file" id="inputfotometeran{{$b->id}}" name="inputfotometeran{{$b->id}}" onchange="form.submit()" style="display: none" />
+                                        @endif
                                         <p class="ket mb-0">
                                             Lakukan unggah foto meteran air pada tangal 1 - 9
                                         </p>
@@ -233,7 +239,9 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    @if(Auth::user()->hasRole('admin'))
                                     <button type="submit" class="btn btn-success">SIMPAN</button>
+                                    @endif
                                 </div>
                             </form>
                         </div>
@@ -322,7 +330,9 @@
                 <div class="total col-md-3 col-sm-7 col-12">
                     <p class="total-text">Rp. 35.000</p>
                     <div class="bayar-con">
+                        @if(Auth::user()->hasRole('admin'))
                         <a href="" class="bayar"><b>bayar</b></a>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -12,9 +12,11 @@
 
     <!-- Button trigger modal -->
     <div class="d-grid gap-2 d-md-flex mb-3 mt-4">
+      @if(Auth::user()->hasRole('admin'))
       <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#tambahTarifModal">
         Tambah Tarif
       </button>
+      @endif
     </div>
 
     <!-- Modal Tambah Tarif-->
@@ -55,7 +57,9 @@
         <tr class="header">
           <th scope="col">KUBIK AIR</th>
           <th scope="col">TARIF (RP)</th>
+          @if(Auth::user()->hasRole('admin'))
           <th scope="col">AKSI</th>
+          @endif
         </tr>
         <tbody>
 
@@ -64,6 +68,7 @@
             <tr class="content">
               <td>{{ $tr ->kubik }}</td>
               <td>{{ $tr ->tarif }}</td>
+              @if(Auth::user()->hasRole('admin'))
               <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit{{$tr->id}}">
                   EDIT
@@ -72,6 +77,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger" type="button">HAPUS</button>
               </td>
+              @endif
             </tr>
           </form>
           @endforeach

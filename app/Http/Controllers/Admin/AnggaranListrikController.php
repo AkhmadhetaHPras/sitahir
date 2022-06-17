@@ -20,7 +20,9 @@ class AnggaranListrikController extends Controller
      */
     public function index()
     {
-        $data = AnggaranListrik::paginate(12);
+        $data = AnggaranListrik::orderBy('tahun', 'desc')
+            ->orderBy('bulan', 'desc')
+            ->paginate(12);
 
         $bulan = Carbon::now()->month;
         $tahun = Carbon::now()->year;
@@ -34,7 +36,7 @@ class AnggaranListrikController extends Controller
             $tambah = 'true';
         }
 
-        return view('admin.anggaranlistrik', compact('data', 'tambah', 'bulan'));
+        return view('admin.anggaranlistrik', compact('data', 'tambah'));
     }
 
     /**
