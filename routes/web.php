@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     // anggaran listrik
     Route::get('/anggaranlistrik', [AnggaranListrikController::class, 'index'])->name('anggaranlistrik');
+    Route::post('/anggaranlistrik', [AnggaranListrikController::class, 'store'])->name('anggaranlistrik.store');
 
     //kelolatarif
     Route::get('/tarif', [KelolaTarifController::class, 'index'])->name('tarif.index');
@@ -76,14 +77,19 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     //lain-lain
     Route::get('/tanggapikeluhan', [TanggapiKeluhanController::class, 'index'])->name('tanggapikeluhan');
+    //pengumuman
     Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman.index');
+    Route::post('/pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
+    Route::put('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
+    Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
+
     Route::get('/instalasianggota', function () {
         return view('admin.transaksiinstalasi');
     })->name('instalasianggota');
 });
 
 // for PENGURUS
-Route::group(['middleware' => ['auth', 'role:pengurus']], function () {
+Route::group(['middleware' => ['auth', 'role:pengurus|admin']], function () {
     Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
     Route::get('/bukuairanggota', [BukuController::class, 'index'])->name('bukuairanggota.index');
     Route::get('/bukuairanggota/{id}', [BukuController::class, 'show'])->name('bukuairanggota.show');

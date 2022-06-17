@@ -14,7 +14,10 @@
             </button>
             @endif
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
-
+                
+                <!-- add -->
+                
+                
                 @foreach($data->slice(0,6) as $d)
                 <!-- read -->
                 <div class="row mb-2">
@@ -78,22 +81,23 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('anggaranlistrik.store') }}" method="POST">
+                @csrf
                     <div class="modal-body">
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingPassword" placeholder="eg : 3">
+                            <input type="number" class="form-control" id="floatingPassword" name="bulan" placeholder="eg : 3">
                             <label for="floatingPassword">Bulan Anggaran</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="eg : 2022">
+                            <input type="number" class="form-control" id="floatingInput" name="tahun" placeholder="eg : 2022">
                             <label for="floatingInput">Tahun Anggaran</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="floatingInput" placeholder="eg : 1200000">
+                            <input type="number" class="form-control" id="floatingInput" name="anggaran" placeholder="eg : 1200000">
                             <label for="floatingInput">Besar Anggaran</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput" placeholder="eg : 1200000">
+                            <input type="date" class="form-control" id="floatingInput" name="tgl_bayar" placeholder="eg : 1200000">
                             <label for="floatingInput">Tanggal Pembayaran</label>
                         </div>
                     </div>
