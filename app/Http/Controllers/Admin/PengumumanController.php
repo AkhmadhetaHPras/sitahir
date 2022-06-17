@@ -7,6 +7,7 @@ use App\Models\Pengumuman;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PengumumanController extends Controller
 {
@@ -29,7 +30,8 @@ class PengumumanController extends Controller
      */
     public function create()
     {
-        return view('admin.pengumuman');
+        $pengumuman = Pengumuman::all(); // mendapatkan data dari tabel kelas
+        return view('admin.pengumuman', ['pengumuman' => $pengumuman]);
     }
 
     /**
@@ -40,17 +42,21 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('file')) {
-            $file = $request->file('file')->store('file', 'public');
-        }
+        
         $request->validate([
-            'Judul'=>'required',
-            'Isi'=>'required',
+            'judul'=>'required',
+            'isi'=>'required',
         ]);
 
-        Pengumuman::create($request->all());
-        return redirect()->route('admin.pengumuman')
-          ->with('success','Pengumuman Berhasil Ditambahkan');
+        $pengumuman = new Pengumuman;
+        $pengumuman->judul = $request->get('judul');
+        $pengumuman->isi = $request->get('isi');
+        $pengumuman->file = $request->get('file');
+
+        $pengumuman->save();
+
+        return redirect()->route('pengumuman.index')
+          ->with('success','Pengumuman Berhasil Ditambahkan');          
     }
 
     /**
@@ -61,7 +67,7 @@ class PengumumanController extends Controller
      */
     public function show($id)
     {
-        $pengumuman = engumuman::where('id', $id)->first();
+        $pengumuman = Pengumuman::where('id', $id)->first();
         return view('admin.pengumuman', compact('Pengumuman'));
     }
 
@@ -73,7 +79,7 @@ class PengumumanController extends Controller
      */
     public function edit($id)
     {
-        $pengumuman = DB::table('engumuman')->where('id', $id)->first();
+        $pengumuman = DB::table('pengumuman')->where('id', $id)->first();
         return view('admin.pengumuman', compact('pengumuman'));
     }
 
@@ -86,17 +92,17 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'Judul'=>'required',
-            'Isi'=>'required',
-        ]);
-        Pengumuan::where('id', $id)
-          ->update([
-              'judul'=>$request->judul,
-              'isi'=>$request->isi,
+       
 
+        $validator1 = Validator::make($request->all(), [
+            'judul' => 'required',
+            'isi' => 'required',
         ]);
-        return redirect()->route('admin.pengumuman')
+        $pengumuman = Pengumuman::find($id);
+        $pengumuman->judul = $request->get('judul');
+        $pengumuman->isi = $request->get('isi');
+        $pengumuman->save();
+        return redirect()->route('pengumuman.index')
           ->with('success','Pengumuman Berhasil Diupdate');
     }
 
@@ -108,8 +114,9 @@ class PengumumanController extends Controller
      */
     public function destroy($id)
     {
-        Pengumuman::where('id', $id)->delete();
-        return redirect()->route('admin.pengumuman')
+        $pengumuman = Pengumuman::find($id);
+        $pengumuman->delete();
+        return redirect()->route('pengumuman.index')
         -> with('success', 'Pengumuman Berhasil Dihapus');
     }
 }

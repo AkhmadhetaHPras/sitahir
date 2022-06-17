@@ -44,7 +44,8 @@ class AnggaranListrikController extends Controller
      */
     public function create()
     {
-        //
+        $data = AnggaranListrik::all(); // mendapatkan data dari tabel kelas
+        return view('admin.anggaranlistrik', ['anggaranlistrik' => $data]);
     }
 
     /**
@@ -55,7 +56,23 @@ class AnggaranListrikController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'bulan'=>'required',
+            'tahun'=>'required',
+            'anggaran'=>'required',
+            'tgl_bayar'=>'required',
+        ]);
+
+        $data = new AnggaranListrik;
+        $data->bulan = $request->get('bulan');
+        $data->tahun = $request->get('tahun');
+        $data->anggaran = $request->get('anggaran');
+        $data->tgl_bayar = $request->get('tgl_bayar');
+
+        $data->save();
+
+        return redirect()->route('anggaranlistrik')
+          ->with('success','Anggaran Listrik Berhasil Ditambahkan'); 
     }
 
     /**
