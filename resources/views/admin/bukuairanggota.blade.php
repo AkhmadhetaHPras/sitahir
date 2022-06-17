@@ -4,7 +4,7 @@
             <h5 class="buku-air-title mb-3 ps-0">
                 <span class="border-3 border-bottom border-primary">Buku Air Anggota</span>
             </h5>
-            @if($baru == 'true')
+            @if($baru == 'true' and Auth::user()->hasRole('admin'))
             <form action="{{ route('bukuairanggota.store') }}" method="post" class="p-0 mt-2">
                 @csrf
                 <button type="submit" class="btn btn-success">TAMBAH BUKU AIR BARU</button>

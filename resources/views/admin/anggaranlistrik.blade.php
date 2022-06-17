@@ -14,26 +14,10 @@
             </button>
             @endif
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
-                @if($tambah == 'true' )
+                
                 <!-- add -->
-                <div class="row mb-2 pe-0">
-                    <div class="col-12 d-flex">
-                        <h6 class="month-name mt-1">
-                            <b>{{ strtoupper(substr(date('F', mktime(0, 0, 0, $bulan, 10)), 0, 3)) }}</b>
-                        </h6>
-                        <div class="card card-penggunaan-air-bulan bg-warning">
-                            <div class="card-body py-2 d-flex align-items-center">
-                                <div class="row row-air text-center">
-                                    <h3 class="mb-0 p-0 border-0" data-bs-toggle="modal" data-bs-target="#tambahanggaran">
-                                        TAMBAH ANGGARAN
-                                    </h3>
-                                    <p class="ket mb-0">Lakukan tambah anggaran pada tanggal 1</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
+                
+                
                 @foreach($data->slice(0,6) as $d)
                 <!-- read -->
                 <div class="row mb-2">

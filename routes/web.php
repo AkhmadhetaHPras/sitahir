@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 });
 
 // for PENGURUS
-Route::group(['middleware' => ['auth', 'role:pengurus']], function () {
+Route::group(['middleware' => ['auth', 'role:pengurus|admin']], function () {
     Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');
     Route::get('/bukuairanggota', [BukuController::class, 'index'])->name('bukuairanggota.index');
     Route::get('/bukuairanggota/{id}', [BukuController::class, 'show'])->name('bukuairanggota.show');

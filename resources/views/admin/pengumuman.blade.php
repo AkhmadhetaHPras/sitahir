@@ -32,7 +32,7 @@
               @csrf
               @method('DELETE')
               <button class="btn btn-danger">HAPUS</button>
-              @endif
+              
             </form>
           </td>
         </tr>
