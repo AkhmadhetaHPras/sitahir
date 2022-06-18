@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Anggota;
 use App\Models\BukuAir;
 use App\Models\Instalasi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -28,7 +29,7 @@ class BukuAirController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(12);
 
-        return view('anggota.bukuair', compact('bukuairs'));
+        return view('anggota.bukuair', compact('bukuairs', 'anggota'));
     }
 
     public function uploadfoto(Request $request, $id)
@@ -55,4 +56,26 @@ class BukuAirController extends Controller
         return Redirect::back()
             ->with('bukuairsuccess', 'Foto Meteran Air Berhasil Diupload');
     }
+
+    // public function bayar(Request $request)
+    // {
+    //     $tagihan = $request->input('data');
+    //     foreach ($tagihan as $t) {
+    //         $bukuair = BukuAir::find($t);
+    //         $bukuair->status = 'Lunas';
+    //         $bukuair->tgl_bayar = Carbon::now();
+    //         $bukuair->save();
+    //     }
+    // }
+
+    // public function redirect($response)
+    // {
+    //     if ($response == 'berhasil') {
+    //         return Redirect::back()
+    //             ->with(array('bukuairsuccess' => 'Pembayaran Berhasil'));
+    //     } else {
+    //         return Redirect::back()
+    //             ->with(array('bukuairfail' => 'Centang tagihan yang hendak dibayar'));
+    //     }
+    // }
 }

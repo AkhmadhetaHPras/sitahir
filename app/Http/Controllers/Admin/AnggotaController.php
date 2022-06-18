@@ -59,6 +59,7 @@ class AnggotaController extends Controller
             'nama' => 'required',
             'alamat' => 'required',
             'nowa' => 'required',
+            'tgl_survey' => 'required',
         ]);
         if ($validator1->fails()) {
             return Redirect::back()
@@ -68,6 +69,7 @@ class AnggotaController extends Controller
 
         $instalasi = new Instalasi();
         $instalasi->tgl_buat = Carbon::parse(now());
+        $instalasi->tgl_survey = Carbon::parse($request->get('tgl_survey'));
         $instalasi->status = 'Dalam Proses';
 
 
@@ -91,6 +93,7 @@ class AnggotaController extends Controller
         $instalasi->anggota()->associate($anggota);
         $instalasi->save();
         $anggota->instalasi = $instalasi->id;
+        $anggota->save();
 
         return Redirect::back()
             ->with(array('success' => "Data anggota berhasil ditambahkan, Lanjutkan menjadwalkan instalasi <a href='/instalasianggota'><b>disini</b></a>"));

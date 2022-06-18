@@ -40,4 +40,9 @@ class Anggota extends Model
     {
         return $this->hasOne(Instalasi::class, 'id_anggota');
     }
+
+    public function instalasicomplate()
+    {
+        return $this->instalasi()->where('status', 'Selesai');
+    }
 }

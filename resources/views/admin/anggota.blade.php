@@ -259,7 +259,7 @@
                 <div class="col-sm-10">
                   @if ($errors->any())
                   <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <strong>Whoops!</strong> Ada beberapa masalah dengan input.<br><br>
                     <ul>
                       @foreach ($errors->all() as $error)
                       <li>{{ $error }}</li>
@@ -317,6 +317,12 @@
                           <label for="password_confirmation" class="col-sm-4 col-form-label">Password Confirmation</label>
                           <div class="col-sm-8">
                             <input type="password" class="form-control form-control-sm" id="password_confirmation" name="password_confirmation">
+                          </div>
+                        </div>
+                        <div class="mb-2 row d-flex align-items-center">
+                          <label for="tgl_survey" class="col-sm-4 col-form-label">Tanggal Survey Lokasi</label>
+                          <div class="col-sm-8">
+                            <input type="datetime-local" class="form-control form-control-sm" id="tgl_survey" name="tgl_survey">
                           </div>
                         </div>
                       </div>

@@ -46,7 +46,7 @@
                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content shadow-lg p-3 mb-5 bg-body rounded">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Detil Anggota</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Detil Pengurus</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -119,7 +119,7 @@
                     <div class="modal-dialog modal-lg modal-dialog-scrollable">
                         <div class="modal-content shadow-lg p-3 mb-5 bg-body rounded">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Edit Anggota</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit Pengurus</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -246,7 +246,7 @@
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content shadow-lg p-3 mb-5 bg-body rounded">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Tambah Anggota</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Tambah Pengurus</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -328,11 +328,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
                     </div>
                 </div>
             </div>
         </div>
-
-
 </x-app-layout>

@@ -79,6 +79,42 @@
         });
     </script>
     @endif
+
+    <!-- nav pending show after fill instalasi form from new ins (admin) -->
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 10)
+    <script>
+        $(function() {
+            $('#pills-pending-tab').tab('show');
+        });
+    </script>
+    @endif
+
+    <!-- nav lunas show after bayar (admin) -->
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 11)
+    <script>
+        $(function() {
+            $('#pills-lunas-tab').tab('show');
+        });
+    </script>
+    @endif
+
+    <!-- nav jadwal show after jadwalkan (admin) -->
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 12)
+    <script>
+        $(function() {
+            $('#pills-pasang-tab').tab('show');
+        });
+    </script>
+    @endif
+
+    <!-- nav penjadwalan pernanganan keluhan (admin) -->
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 13)
+    <script>
+        $(function() {
+            $('#pills-proses-tab').tab('show');
+        });
+    </script>
+    @endif
 </body>
 
 </html>

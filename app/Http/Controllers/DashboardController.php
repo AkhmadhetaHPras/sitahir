@@ -71,7 +71,10 @@ class DashboardController extends Controller
 
         $pengumuman = Pengumuman::all();
 
-        $data = [$kubiknow, $kubikprev, $cartmonth, $cartkubik, $jumlah_anggota, $anggaran_listrik, $pengumuman];
+        // khusus admin atau pengurus
+        $tagihan = BukuAir::where('status', 'Tagihan')->get();
+
+        $data = [$kubiknow, $kubikprev, $cartmonth, $cartkubik, $jumlah_anggota, $anggaran_listrik, $pengumuman, $tagihan];
 
         if (Auth::user()->hasRole('pengurus')) {
             return view('dashboard', compact('data'));

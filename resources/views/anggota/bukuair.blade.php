@@ -19,6 +19,11 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
+            @if ($message = Session::get('bukuairfail'))
+            <div class="alert alert-danger">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
                 @foreach($bukuairs->slice(0,6) as $b)
 
@@ -118,13 +123,13 @@
                             <div class="card-body d-flex align-items-center">
                                 <div class="row row-air">
                                     <div class="meteran-air col d-flex justify-content-center">
-                                        998
+                                        {{ $b->meteran_air }}
                                     </div>
                                     <div class="kubik-penggunaan col d-flex justify-content-center">
-                                        15
+                                        {{ $b->kubik }}
                                     </div>
                                     <div class="tarif col d-flex justify-content-center">
-                                        30000
+                                        {{ $b->tarif }}
                                     </div>
                                     <div class="ket col d-flex justify-content-center text-danger">
                                         BELUM
@@ -132,7 +137,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -173,9 +178,10 @@
                     </div>
                 </div>
                 @endif
-                @endforeach
 
+                @endforeach
             </div>
+
             <div class="buku-air-second-col col-md-6 col-12 ps-0">
                 @foreach($bukuairs->slice(6,12) as $b)
 
@@ -289,7 +295,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -330,6 +336,7 @@
                     </div>
                 </div>
                 @endif
+
                 @endforeach
             </div>
         </div>
@@ -346,11 +353,58 @@
                 <span class="border-3 border-bottom border-primary">Tagihan Anda</span>
             </h5>
             <div class="total col-md-3 col-sm-7 col-12">
-                <p class="total-text">Rp. 35.000</p>
+                <p class="total-text">Rp. 0</p>
+                @if(App\Models\BukuAir::where('id_anggota', $anggota->id)->where('status', 'Tagihan')->count() > 0)
+                <input type="hidden" id="total-bayar" name="total-bayar" value="0">
                 <div class="bayar-con">
-                    <a href="" class="bayar"><b>bayar</b></a>
+                    <button class="bayar" onclick="bayar()">Bayar</button>
                 </div>
+                @endif
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let total = parseInt($('#total-bayar').val());
+        let data = [];
+        $(document).ready(function() {
+
+            $('input[type=checkbox]').change(
+                function() {
+                    if (this.checked) {
+                        total += parseInt($(this).attr('id'));
+                        data.push($(this).val());
+                    } else {
+                        total -= parseInt($(this).attr('id'));
+                        data.splice(data.indexOf($(this).val()), 1);
+                    }
+
+                    $('.total-text').text('Rp. ' + total);
+                    $('#total-bayar').val(total);
+                    console.log(data);
+                });
+        });
+
+        function bayar() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "PUT",
+                url: "/bukuair/bayar",
+                data: {
+                    data: data
+                },
+                success: function(response) {
+                    window.location = '/bukuair/bayar/' + 'berhasil';
+                },
+                error: function(response) {
+                    window.location = '/bukuair/bayar/' + 'gagal';
+                }
+            });
+        }
+    </script>
 </x-app-layout>

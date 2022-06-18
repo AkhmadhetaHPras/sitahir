@@ -169,7 +169,7 @@
     @if(Auth::user()->hasRole('admin|pengurus'))
     <!-- Tabel Anggota Nunggak -->
     <h5 class="overview-title mb-3 ps-0 mt-5">
-        <span class="border-3 border-bottom border-primary">Daftar Anggota Belum Bayar Bulan Maret 2022</span>
+        <span class="border-3 border-bottom border-primary">Daftar Anggota Yang Memiliki Tagihan</span>
     </h5>
 
     <div class="table-responsive-sm">
@@ -178,19 +178,23 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">NAMA ANGGOTA</th>
-                    <th scope="col">ALAMAT</th>
-                    <th scope="col">NO.WHATSAPP</th>
+                    <th scope="col">NO. WHATSAPP</th>
+                    <th scope="col">BULAN</th>
+                    <th scope="col">TAGIHAN</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach($data[7] as $t)
                 <tr>
-                    <td>1</td>
-                    <td>Ahmad Rafif Alaudin</td>
-                    <td>Jalan Anggraini RT.08/RW.02</td>
-                    <td><a href="" class="no-wa"> <i class="lab la-whatsapp" style="color:#075e54;font-size:20px;"></i>
-                            089620423459</a>
+                    <td>{{ $t->anggota->id }}</td>
+                    <td>{{ $t->anggota->nama }}</td>
+                    <td><a href="https://wa.me/62{{ substr($t->anggota->nowa, 1) }}" target="_blank" class="no-wa"> <i class="lab la-whatsapp" style="color:#075e54;font-size:20px;"></i>
+                            {{ $t->anggota->nowa }}</a>
                     </td>
+                    <td>{{ $t->bulan }}</td>
+                    <td>Rp. {{ $t->tarif }}</td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

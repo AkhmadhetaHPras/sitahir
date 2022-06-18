@@ -3,12 +3,11 @@
         <!-- nav -->
         <nav class="navbar navbar-light">
             <a class="navbar-brand" href="{{ route('bukuairanggota.index') }}"><i class="las la-arrow-left" style="font-size:2rem"></i></a>
-            <form class="d-flex">
+            <div class="d-flex">
                 <h5>{{ $anggota->nama }}</h5>
-            </form>
+            </div>
         </nav>
         <!-- nav end -->
-
         <div class="row">
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -25,6 +24,11 @@
                 <p>{{ $message }}</p>
             </div>
             @endif
+            @if ($message = Session::get('bukuairfail'))
+            <div class="alert alert-danger">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
             <div class="buku-air-first-col col-md-6 col-12 ps-0">
                 @foreach($bukuair->slice(0,6) as $b)
 
@@ -38,7 +42,7 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2">
                                 <div class="row row-air text-center">
-                                    <form action="{{ route('bukuair.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('bukuairanggota.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
@@ -83,7 +87,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Penggunaan Air</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form action="{{ route('bukuair.updatemeteranair', $b->id) }}" method="post">
+                            <form action="{{ route('bukuairanggota.updatemeteranair', $b->id) }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal-body container">
@@ -128,7 +132,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +189,7 @@
                         <div class="card card-penggunaan-air-bulan bg-warning">
                             <div class="card-body py-2">
                                 <div class="row row-air text-center">
-                                    <form action="{{ route('bukuair.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('bukuairanggota.uploadfoto', $b->id) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <label for="inputfotometeran{{$b->id}}" class="form-label btn-upload mb-0 p-0">
@@ -230,12 +234,14 @@
                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Penggunaan Air</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form action="" method="post">
+                            <form action="{{ route('bukuairanggota.updatemeteranair', $b->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
                                 <div class="modal-body container">
                                     <img src="{{ asset('storage/'. $b->foto) }}" alt="foto meteran" class="img-fluid">
                                     <div class="mb-3 mt-4">
                                         <label for="angkameteran" class="form-label">Angka Meteran Air</label>
-                                        <input type="number" class="form-control" id="angkameteran">
+                                        <input type="number" class="form-control" name="angkameteran" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -273,7 +279,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -328,15 +334,62 @@
                     <span class="border-3 border-bottom border-primary">Tagihan {{ $anggota->nama }}</span>
                 </h5>
                 <div class="total col-md-3 col-sm-7 col-12">
-                    <p class="total-text">Rp. 35.000</p>
+                    <p class="total-text">Rp. 0</p>
+                    @if(App\Models\BukuAir::where('id_anggota', $anggota->id)->where('status', 'Tagihan')->count() > 0)
+                    <input type="hidden" id="total-bayar" name="total-bayar" value="0">
                     <div class="bayar-con">
                         @if(Auth::user()->hasRole('admin'))
-                        <a href="" class="bayar"><b>bayar</b></a>
+                        <button class="bayar" onclick="bayar()">Bayar</button>
                         @endif
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <!-- buku air end -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let total = parseInt($('#total-bayar').val());
+        let data = [];
+        $(document).ready(function() {
+
+            $('input[type=checkbox]').change(
+                function() {
+                    if (this.checked) {
+                        total += parseInt($(this).attr('id'));
+                        data.push($(this).val());
+                    } else {
+                        total -= parseInt($(this).attr('id'));
+                        data.splice(data.indexOf($(this).val()), 1);
+                    }
+
+                    $('.total-text').text('Rp. ' + total);
+                    $('#total-bayar').val(total);
+                    console.log(data);
+                });
+        });
+
+        function bayar() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "PUT",
+                url: "/bukuair/bayar",
+                data: {
+                    data: data
+                },
+                success: function(response) {
+                    window.location = '/bukuair/bayar/' + 'berhasil';
+                },
+                error: function(response) {
+                    window.location = '/bukuair/bayar/' + 'gagal';
+                }
+            });
+        }
+    </script>
 </x-app-layout>

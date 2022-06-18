@@ -8,8 +8,11 @@ use App\Models\Anggota;
 use App\Models\TarifAir;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+
+use function PHPUnit\Framework\isNull;
 
 class BukuController extends Controller
 {
@@ -20,8 +23,9 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $buku = Anggota::with('buku_air')->get();
+        $buku = Anggota::with('buku_air', 'instalasicomplate')->get()->where('instalasicomplate', '!=', null);
 
+        // dd($buku->where('instalasicomplate', '!=', null));
         $bulanbukulast = BukuAir::orderBy('id', 'desc')->first();
         $bulannow = Carbon::now()->month;
 
@@ -43,7 +47,7 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        $anggota = Anggota::all();
+        $anggota = Anggota::with('buku_air', 'instalasicomplate')->get()->where('instalasicomplate', '!=', null);
         $bulannow = Carbon::now()->month;
         $tahunnow = Carbon::now()->year;
         foreach ($anggota as $a) {
@@ -103,7 +107,12 @@ class BukuController extends Controller
 
         $tarif = TarifAir::where('kubik', $bukuair->kubik)->first();
 
-        $bukuair->tarif = $tarif->tarif;
+        if (isNull($tarif)) {
+            $bukuair->tarif = $bukuair->kubik * 5000;
+        } else {
+            $bukuair->tarif = $tarif->tarif;
+        }
+
         $bukuair->status = 'Tagihan';
         $bukuair->save();
 
@@ -132,5 +141,27 @@ class BukuController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function bayar(Request $request)
+    {
+        $tagihan = $request->input('data');
+        foreach ($tagihan as $t) {
+            $bukuair = BukuAir::find($t);
+            $bukuair->status = 'Lunas';
+            $bukuair->tgl_bayar = Carbon::now();
+            $bukuair->save();
+        }
+    }
+
+    public function redirect($response)
+    {
+        if ($response == 'berhasil') {
+            return Redirect::back()
+                ->with(array('bukuairsuccess' => 'Pembayaran Berhasil'));
+        } else {
+            return Redirect::back()
+                ->with(array('bukuairfail' => 'Centang tagihan yang hendak dibayar'));
+        }
     }
 }
