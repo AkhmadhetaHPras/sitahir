@@ -26,9 +26,10 @@
                     <td>{{ $p ->id }}</td>
                     <td>{{ $p ->nama }}</td>
                     <td>{{ $p ->jabatan }}</td>
-
                     <td>
-                        <form action="" method="POST">
+                        <form action="{{ route('pengurus.destroy', $p->id) }}" method="POST">
+                            @csrf
+                            @method('delete')
                             <button type="button" class="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#detail{{$p->id}}">
                                 DETAIL
                             </button>
@@ -144,7 +145,7 @@
                                                 <p>{{ $message }}</p>
                                             </div>
                                             @endif
-                                            <form action="" method="POST" id="formProfile" enctype="multipart/form-data">
+                                            <form action="{{ route('pengurus.update', $p->user->id) }}" method="POST" id="formProfile" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="mb-2 row">
@@ -175,14 +176,14 @@
                                                 <div class="mb-2 row d-flex align-items-center">
                                                     <label for="jabatan" class="col-sm-4 col-form-label">Jabatan</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control-plaintext form-control-sm" id="jabatan" name="jabatan" value="{{$p->jabatan}}" readonly>
+                                                        <input type="text" class="form-control-plaintext form-control-sm" id="jabatan" name="jabatan" value="{{$p->jabatan}}">
                                                     </div>
                                                 </div>
 
                                                 <div class="mb-5">
                                                     <div class="form-check d-flex justify-content-end mb-2">
-                                                        <input type="checkbox" id="checkChangeCredentialsEditAnggota{{$p->id}}" name='checkChangeCredentialsEditAnggota' data-bs-toggle="collapse" data-bs-target="#changeCredentialsEditAnggota{{$p->id}}" aria-expanded="false" aria-controls="collapseCredentials" style="display: none;">
-                                                        <label for="checkChangeCredentialsEditAnggota{{$p->id}}">
+                                                        <input type="checkbox" id="checkChangeCredentialsEditPengurus{{$p->id}}" name='checkChangeCredentialsEditPengurus' data-bs-toggle="collapse" data-bs-target="#changeCredentialsEditAnggota{{$p->id}}" aria-expanded="false" aria-controls="collapseCredentials" style="display: none;">
+                                                        <label for="checkChangeCredentialsEditPengurus{{$p->id}}">
                                                             Change Credentials
                                                         </label>
                                                     </div>
@@ -268,8 +269,9 @@
                                         <p>{{ $message }}</p>
                                     </div>
                                     @endif
-                                    <form action="" method="POST" id="formProfile">
+                                    <form action="{{ route('pengurus.store') }}" method="POST" id="formProfile">
                                         @csrf
+                                        @method('POST')
                                         <div class="mb-2 row">
                                             <label for="nama" class="col-sm-4 col-form-label label-modal">Nama</label>
                                             <div class="col-sm-8">
@@ -288,7 +290,12 @@
                                                 <input type="text" class="form-control form-control-sm" id="alamat" name="alamat" maxlength="50" required value="">
                                             </div>
                                         </div>
-
+                                        <div class="mb-2 row d-flex align-items-center">
+                                            <label for="jabatan" class="col-sm-4 col-form-label">Jabatan</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control form-control-sm" id="jabatan" name="jabatan" maxlength="50" required value="">
+                                            </div>
+                                        </div>
                                         <div class="mb-5">
                                             <div class="" id="">
                                                 <div class="mb-2 row">

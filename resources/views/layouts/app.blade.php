@@ -115,6 +115,14 @@
         });
     </script>
     @endif
+
+    @if(!empty(Session::get('error_code')) && Session::get('error_code') == 14)
+    <script>
+        $(function() {
+            $('#tambah').modal('show');
+        });
+    </script>
+    @endif
 </body>
 
 </html>
