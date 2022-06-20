@@ -18,6 +18,47 @@ class InstalasiAnggotaController extends Controller
         if ($instalasi->status == 'Selesai') {
             return abort(403, 'Unauthorized action.');
         }
+
+        if ($instalasi->tarif_instalasi != null) {
+            // Set your Merchant Server Key
+            \Midtrans\Config::$serverKey = 'SB-Mid-server-6kQ9oVZV3nWHEEiOL1bz0Sxs';
+            // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+            \Midtrans\Config::$isProduction = false;
+            // Set sanitization on (default)
+            \Midtrans\Config::$isSanitized = true;
+            // Set 3DS transaction for credit card to true
+            \Midtrans\Config::$is3ds = true;
+
+            foreach ($instalasi->form_instalasi_alat as $t) {
+                $id = $t->id;
+                $price = $t->harga_satuan;
+                $nama = $t->nama_barang;
+                $quantity = $t->jumlah;
+                $data[] =  [
+                    'id' => $id,
+                    'price' => $price,
+                    'name' => $nama,
+                    'quantity' => $quantity
+                ];
+            }
+            $total = $instalasi->tarif_instalasi;
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => rand(),
+                    'gross_amount' => $total,
+                ),
+                'item_details' => $data,
+                'customer_details' => array(
+                    'first_name' => $instalasi->anggota->nama,
+                    'last_name' => '',
+                    'email' => $instalasi->anggota->user->email,
+                    'phone' => $instalasi->anggota->nowa,
+                ),
+            );
+
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            return view('anggota.instalasi', ['snap_token' => $snapToken, 'instalasi' => $instalasi]);
+        }
         return view('anggota.instalasi', compact('instalasi'));
     }
 

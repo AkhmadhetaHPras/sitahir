@@ -53,15 +53,18 @@
                 <div class="total col-md-3 col-sm-7 col-12">
                     <p class="total-text">Rp. {{ $instalasi->tarif_instalasi }}</p>
                     <div class="bayar-con">
-                        <form action="{{ route('instalasi.bayar', $instalasi->anggota->id) }}" method="POST">
-                            @csrf
-                            @method('put')
-                            <input type="submit" class="bayar" value="Bayar">
-                        </form>
+                        <button class="bayar" id="pay-button">Bayar</button>
                     </div>
                 </div>
             </div>
         </div>
+        <form action="{{ route('instalasi.bayar', $instalasi->anggota->id) }}" method="post" id="submit_form">
+            @csrf
+            @method('POST')
+            <input type="hidden" name="json" id="json_callback">
+        </form>
+        @elseif($instalasi->status == 'Lunas')
+        <p>*Biaya instalasi lunas</p>
         @endif
     </div>
     @endif
@@ -79,5 +82,48 @@
             <input type="submit" class="btn btn-success" value="Selesai">
         </form>
     </div>
+    @endif
+
+    @if(!is_null($instalasi->tarif_instalasi) && $instalasi->status == 'Dalam Proses')
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('{{ $snap_token }}', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+
+                    // console.log(result);
+                    send_response_to_form(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+
+                    // console.log(result);
+                    // alert('Maaf, Selesaikan pembayaran sebelum menutup jendela pembayaran');
+                    // location.reload();
+                    send_response_to_form(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+
+                    // console.log(result);
+                    // alert('Maaf, terjadi error. silakan coba lagi');
+                    // location.reload();
+                    send_response_to_form(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('Anda menutup jendela pembayaran sebelum menyelesaikan pembayaran');
+                }
+            })
+        });
+
+        function send_response_to_form(result) {
+            document.getElementById('json_callback').value = JSON.stringify(result);
+            $('#submit_form').submit();
+        }
+    </script>
     @endif
 </x-app-layout>

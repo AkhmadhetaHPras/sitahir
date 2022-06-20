@@ -31,9 +31,12 @@ Route::get('/kepengurusan', function () {
 
 // ajax
 Route::post('/instalasianggota', [TransaksiInstalasiController::class, 'store'])->name('instalasianggota.store');
-Route::get('/instalasianggota/{response}', [TransaksiInstalasiController::class, 'redirect']);
-Route::put('/bukuair/bayar', [BukuController::class, 'bayar'])->name('bukuair.bayar');
-Route::get('/bukuair/bayar/{response}', [BukuController::class, 'redirect']);
+Route::put('/bukuair/bayar', [BukuController::class, 'checkout'])->name('bukuair.checkout');
+
+// midtrans redirect
+Route::post('/bukuair/bayar', [BukuController::class, 'bayar'])->name('bukuair.bayar');
+Route::get('/bukuair/bayar/{response}', [BukuController::class, 'redirect'])->name('bukuair.redirect');
+
 
 // for all roles
 Route::group(['middleware' => ['auth']], function () {
@@ -56,7 +59,7 @@ Route::group(['middleware' => ['auth', 'role:anggota']], function () {
     Route::get('/instalasi', [InstalasiAnggotaController::class, 'index'])->name('instalasi');
     Route::put('/instalasi/{instalasi}', [InstalasiAnggotaController::class, 'update'])->name('instalasi.update');
     // BAYAR INSTALASI DARI ANGGOTA
-    Route::put('/instalasi/bayar/{id}', [InstalasiAnggotaController::class, 'bayar'])->name('instalasi.bayar');
+    Route::post('/instalasi/bayar/{id}', [InstalasiAnggotaController::class, 'bayar'])->name('instalasi.bayar');
 });
 
 // for ADMIN
@@ -73,6 +76,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/bukuairanggota', [BukuController::class, 'store'])->name('bukuairanggota.store');
     Route::put('/bukuairanggota/{bukuair}', [BukuAirController::class, 'uploadfoto'])->name('bukuairanggota.uploadfoto');
     Route::put('/bukuairanggota/anggota/{id}', [BukuController::class, 'updatemeteranair'])->name('bukuairanggota.updatemeteranair');
+
 
 
     // anggaran listrik
@@ -99,8 +103,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/instalasianggota', [TransaksiInstalasiController::class, 'index'])->name('instalasianggota');
     Route::delete('/instalasianggota/{id}', [TransaksiInstalasiController::class, 'batalkan'])->name('instalasianggota.batalkan');
     Route::put('/instalasianggota/jadwal/{id}', [TransaksiInstalasiController::class, 'jadwal'])->name('instalasianggota.jadwal');
+    Route::get('/instalasianggota/{response}', [TransaksiInstalasiController::class, 'redirect']);
     // BAYAR INSTALASI DARI ADMIN
-    Route::put('/instalasianggota/{id}', [TransaksiInstalasiController::class, 'bayar'])->name('instalasianggota.bayar');
+    Route::put('/instalasianggota/{id}', [TransaksiInstalasiController::class, 'checkout'])->name('instalasianggota.checkout');
+    Route::post('/instalasianggota/{id}', [TransaksiInstalasiController::class, 'bayar'])->name('instalasianggota.bayar');
 });
 
 // for PENGURUS

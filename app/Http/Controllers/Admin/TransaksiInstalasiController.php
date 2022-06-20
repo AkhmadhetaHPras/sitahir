@@ -65,6 +65,55 @@ class TransaksiInstalasiController extends Controller
             ->with(array('pendingsuccess' => $response, 'error_code' => 10));
     }
 
+    public function checkout($id)
+    {
+        $instalasi = Instalasi::where('id_anggota', $id)->first();
+        // $instalasi->status = 'Lunas';
+        // $instalasi->save();
+
+        // return redirect('/instalasianggota')
+        //     ->with(array('lunassuccess' => 'Pembayaran Instalasi diterima', 'error_code' => 11));
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-6kQ9oVZV3nWHEEiOL1bz0Sxs';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        foreach ($instalasi->form_instalasi_alat as $t) {
+            $id = $t->id;
+            $price = $t->harga_satuan;
+            $nama = $t->nama_barang;
+            $quantity = $t->jumlah;
+            $data[] =  [
+                'id' => $id,
+                'price' => $price,
+                'name' => $nama,
+                'quantity' => $quantity
+            ];
+        }
+        $total = $instalasi->tarif_instalasi;
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => $total,
+            ),
+            'item_details' => $data,
+            'customer_details' => array(
+                'first_name' => $instalasi->anggota->nama,
+                'last_name' => '',
+                'email' => $instalasi->anggota->user->email,
+                'phone' => $instalasi->anggota->nowa,
+            ),
+        );
+        // dd($params);
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        return view('paymentinstalasi', ['snap_token' => $snapToken, 'instalasi' => $instalasi]);
+    }
+
     public function bayar($id)
     {
         $instalasi = Instalasi::where('id_anggota', $id)->first();

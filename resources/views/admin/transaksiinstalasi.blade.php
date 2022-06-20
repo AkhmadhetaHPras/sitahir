@@ -122,7 +122,7 @@
               @method('delete')
               <input class="btn btn-danger batal" type="submit" value="Batalkan">
             </form>
-            <form action="{{ route('instalasianggota.bayar', $i->anggota->id) }}" method="POST">
+            <form action="{{ route('instalasianggota.checkout', $i->anggota->id) }}" method="POST">
               @csrf
               @method('put')
               <input type="submit" class="btn me-md-2 edit" value="Bayar">

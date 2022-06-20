@@ -367,7 +367,7 @@
 
                     $('.total-text').text('Rp. ' + total);
                     $('#total-bayar').val(total);
-                    console.log(data);
+                    // console.log(data);
                 });
         });
 
@@ -384,7 +384,8 @@
                     data: data
                 },
                 success: function(response) {
-                    window.location = '/bukuair/bayar/' + 'berhasil';
+                    console.log(response.id);
+                    window.location = '/bukuair/bayar/' + response.id;
                 },
                 error: function(response) {
                     window.location = '/bukuair/bayar/' + 'gagal';

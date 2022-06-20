@@ -399,7 +399,7 @@
                     data: data
                 },
                 success: function(response) {
-                    window.location = '/bukuair/bayar/' + 'berhasil';
+                    window.location = '/bukuair/bayar/' + response.id;
                 },
                 error: function(response) {
                     window.location = '/bukuair/bayar/' + 'gagal';

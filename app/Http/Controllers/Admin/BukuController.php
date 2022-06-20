@@ -8,10 +8,12 @@ use App\Models\Anggota;
 use App\Models\TarifAir;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
 
 class BukuController extends Controller
@@ -102,15 +104,15 @@ class BukuController extends Controller
             $meteran_airprev = (int)$kubikprev->meteran_air;
         }
 
+
         $bukuair->meteran_air = $request->get('angkameteran');
         $bukuair->kubik = (int)$request->get('angkameteran') - $meteran_airprev;
-
         $tarif = TarifAir::where('kubik', $bukuair->kubik)->first();
 
-        if (isNull($tarif)) {
-            $bukuair->tarif = $bukuair->kubik * 5000;
-        } else {
+        if ($tarif) {
             $bukuair->tarif = $tarif->tarif;
+        } else {
+            $bukuair->tarif = $bukuair->kubik * 5000;
         }
 
         $bukuair->status = 'Tagihan';
@@ -143,25 +145,90 @@ class BukuController extends Controller
         //
     }
 
-    public function bayar(Request $request)
+    public function checkout(Request $request)
     {
         $tagihan = $request->input('data');
-        foreach ($tagihan as $t) {
+
+        return response()->json([
+            'id' => $tagihan,
+        ]);
+    }
+
+    public function redirect($response)
+    {
+        if ($response == 'gagal') {
+            return Redirect::back()
+                ->with(array('bukuairfail' => 'Centang tagihan yang hendak dibayar'));
+        } else {
+            // Set your Merchant Server Key
+            \Midtrans\Config::$serverKey = 'SB-Mid-server-6kQ9oVZV3nWHEEiOL1bz0Sxs';
+            // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+            \Midtrans\Config::$isProduction = false;
+            // Set sanitization on (default)
+            \Midtrans\Config::$isSanitized = true;
+            // Set 3DS transaction for credit card to true
+            \Midtrans\Config::$is3ds = true;
+
+            $myArray = explode(',', $response);
+            foreach ($myArray as $t) {
+                $bukuair = BukuAir::find($t);
+                $id = $bukuair->id;
+                $price = $bukuair->tarif;
+                $bulan = $bukuair->bulan;
+                $kubik = $bukuair->kubik;
+                $anggota = $bukuair->anggota;
+
+                $datatable[] = [
+                    'id' => $id,
+                    'bulan' => $bulan,
+                    'kubik' => $kubik,
+                    'tagihan' => $price
+                ];
+
+                $data[] =  [
+                    'id' => $id,
+                    'price' => $price,
+                    'name' => 'Tagihan bulan ' . $bulan,
+                    'quantity' => 1
+                ];
+            }
+            $total = collect($datatable)->sum('tagihan');
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => rand(),
+                    'gross_amount' => $total,
+                ),
+                'item_details' => $data,
+                'customer_details' => array(
+                    'first_name' => $anggota->nama,
+                    'last_name' => '',
+                    'email' => $anggota->user->email,
+                    'phone' => $anggota->nowa,
+                ),
+            );
+            // dd($params);
+
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+            return view('payment', ['snap_token' => $snapToken, 'tagihan' => $datatable, 'total' => $total]);
+        }
+    }
+
+    public function bayar(Request $request)
+    {
+        // dd($request->input('json'));
+        foreach ($request->input('id') as $t) {
+            // dd($t);
             $bukuair = BukuAir::find($t);
             $bukuair->status = 'Lunas';
             $bukuair->tgl_bayar = Carbon::now();
             $bukuair->save();
         }
-    }
 
-    public function redirect($response)
-    {
-        if ($response == 'berhasil') {
-            return Redirect::back()
-                ->with(array('bukuairsuccess' => 'Pembayaran Berhasil'));
-        } else {
-            return Redirect::back()
-                ->with(array('bukuairfail' => 'Centang tagihan yang hendak dibayar'));
+        if (Auth::user()->hasRole('admin')) {
+            return redirect('/bukuairanggota/' . $bukuair->anggota->id)->with(array('bukuairsuccess' => 'Pembayaran Berhasil'));
+        } elseif (Auth::user()->hasRole('anggota')) {
+            return redirect('/bukuair')->with(array('bukuairsuccess' => 'Pembayaran Berhasil'));
         }
     }
 }

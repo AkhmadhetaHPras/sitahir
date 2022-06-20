@@ -149,22 +149,6 @@
         </div>
     </div>
 
-    <!-- Tagihan Anda -->
-    @if(Auth::user()->hasRole('anggota'))
-    <div class="container-fluid tagihan">
-        <div class="row pe-2">
-            <h5 class="overview-title my-3 ps-0">
-                <span class="border-3 border-bottom border-primary">Tagihan Anda</span>
-            </h5>
-            <div class="total col-md-3 col-sm-7 col-12">
-                <p class="total-text">Rp. 35.000</p>
-                <div class="bayar-con">
-                    <a href="" class="bayar"><b>bayar</b></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
 
     @if(Auth::user()->hasRole('admin|pengurus'))
     <!-- Tabel Anggota Nunggak -->
