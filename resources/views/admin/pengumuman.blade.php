@@ -48,8 +48,7 @@
                 <div class="col-sm-8">
                   <input type="text" class="form-control" name="judul" required value="{{$pg->judul}}" readonly>
                 </div>
-                <p class="detail-p">Surat Undangan Rapat 10 Juli</p>
-                <h6 class="content-detail">ISI PENGUMUMAN</h6>
+                <h6 class="content-detail mt-3">ISI PENGUMUMAN</h6>
                 <textarea class="form-control detail-p" rows="3" name="isi" required readonly>{{$pg->isi}}</textarea>
                 <br>
                 <h6 class="content-detail">FILE</h6>
@@ -73,11 +72,13 @@
                   <div class="col-sm-8">
                     <input type="text" class="form-control" name="judul" required value="{{$pg->judul}}">
                   </div>
-                  <h6 class="content-detail">ISI PENGUMUMAN</h6>
+                  <h6 class="content-detail mt-3">ISI PENGUMUMAN</h6>
                   <textarea class="form-control detail-p" rows="3" name="isi" required>{{$pg->isi}}</textarea>
                   <br>
                   <h6 class="content-detail">FILE</h6>
-                  <a class="detail-p" href="{{$pg->file}}">{{$pg->file}}</a>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="file" required value="{{$pg->file}}">
+                  </div>
                   <button class="btn btn-edit">EDIT</button>
 
 

@@ -80,44 +80,47 @@
               @endif
             </tr>
           </form>
+
+ <!------ Modal Edit Tarif  -->
+ <form action="{{ route('tarif.update',$tr->id) }}" method="POST" id="formProfile" enctype="multipart/form-data">
+  @csrf
+  @method('PUT')
+  <div class="modal fade" id="edit{{$tr->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Tarif</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="addKubikAir" class="form-label">Kubik Air</label>
+              <input type="number" class="form-control" id="addKubikAir" name="kubik" required value="{{$tr->kubik}}">
+            </div>
+            <div class="mb-3">
+              <label for="addTarif" class="form-label">Tarif (Rp)</label>
+              <input type="number" class="form-control" id="addTarif" name="tarif" placeholder="contoh : 15000" required value="{{$tr->tarif}}">
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button type="submit" class="btn btn-success mt-3"><b>SIMPAN</b></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!------ Modal Edit Tarif End -->
+
           @endforeach
         </tbody>
       </table>
       {!! $paginate->links() !!}
     </div>
 
-    <!------ Modal Edit Tarif  -->
-    <form action="{{ route('tarif.update',$tr->id) }}" method="POST" id="formProfile" enctype="multipart/form-data">
-      @csrf
-      @method('PUT')
-      <div class="modal fade" id="edit{{$tr->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Tarif</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="addKubikAir" class="form-label">Kubik Air</label>
-                  <input type="number" class="form-control" id="addKubikAir" name="kubik" required value="{{$tr->kubik}}">
-                </div>
-                <div class="mb-3">
-                  <label for="addTarif" class="form-label">Tarif (Rp)</label>
-                  <input type="number" class="form-control" id="addTarif" name="tarif" placeholder="contoh : 15000" required value="{{$tr->tarif}}">
-                </div>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <button type="submit" class="btn btn-success mt-3"><b>SIMPAN</b></button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-    <!------ Modal Edit Tarif End -->
+   
 
     <!-- Flex fot Table End -->
 

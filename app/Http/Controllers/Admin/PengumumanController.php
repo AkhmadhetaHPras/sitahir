@@ -19,8 +19,8 @@ class PengumumanController extends Controller
     public function index()
     {
         $pengumuman = Pengumuman::all();
-        $paginate = Pengumuman::orderBy('id','asc')->paginate(7);
-        return view('admin.pengumuman',['pengumuman'=>$pengumuman,'paginate'=>$paginate]);
+        $paginate = Pengumuman::orderBy('id', 'asc')->paginate(7);
+        return view('admin.pengumuman', ['pengumuman' => $pengumuman, 'paginate' => $paginate]);
     }
 
     /**
@@ -42,10 +42,10 @@ class PengumumanController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
-            'judul'=>'required',
-            'isi'=>'required',
+            'judul' => 'required',
+            'isi' => 'required',
         ]);
 
         $pengumuman = new Pengumuman;
@@ -56,7 +56,7 @@ class PengumumanController extends Controller
         $pengumuman->save();
 
         return redirect()->route('pengumuman.index')
-          ->with('success','Pengumuman Berhasil Ditambahkan');          
+            ->with('success', 'Pengumuman Berhasil Ditambahkan');
     }
 
     /**
@@ -92,7 +92,7 @@ class PengumumanController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
 
         $validator1 = Validator::make($request->all(), [
             'judul' => 'required',
@@ -101,9 +101,10 @@ class PengumumanController extends Controller
         $pengumuman = Pengumuman::find($id);
         $pengumuman->judul = $request->get('judul');
         $pengumuman->isi = $request->get('isi');
+        $pengumuman->file = $request->get('file');
         $pengumuman->save();
         return redirect()->route('pengumuman.index')
-          ->with('success','Pengumuman Berhasil Diupdate');
+            ->with('success', 'Pengumuman Berhasil Diupdate');
     }
 
     /**
@@ -117,6 +118,6 @@ class PengumumanController extends Controller
         $pengumuman = Pengumuman::find($id);
         $pengumuman->delete();
         return redirect()->route('pengumuman.index')
-        -> with('success', 'Pengumuman Berhasil Dihapus');
+            ->with('success', 'Pengumuman Berhasil Dihapus');
     }
 }
