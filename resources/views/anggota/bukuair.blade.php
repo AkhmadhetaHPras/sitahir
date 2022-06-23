@@ -137,7 +137,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{number_format($b->tarif)}}" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -295,7 +295,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{number_format($b->tarif)}}" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
                                             </div>
                                         </div>
                                     </div>
