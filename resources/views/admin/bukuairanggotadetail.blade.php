@@ -124,7 +124,7 @@
                                         {{ $b->kubik }}
                                     </div>
                                     <div class="tarif col d-flex justify-content-center">
-                                        {{ $b->tarif }}
+                                        Rp. {{ number_format($b->tarif) }}
                                     </div>
                                     <div class="ket col d-flex justify-content-center text-danger">
                                         BELUM
@@ -132,7 +132,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{number_format($b->tarif)}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@
                                         {{ $b->kubik }}
                                     </div>
                                     <div class="tarif col d-flex justify-content-center">
-                                        {{ $b->tarif }}
+                                        Rp. {{ number_format($b->tarif) }}
                                     </div>
                                     <div class="ket col d-flex justify-content-center text-success">
                                         LUNAS
@@ -271,7 +271,7 @@
                                         {{ $b->kubik }}
                                     </div>
                                     <div class="tarif col d-flex justify-content-center">
-                                        {{ $b->tarif }}
+                                        Rp. {{ number_format($b->tarif) }}
                                     </div>
                                     <div class="ket col d-flex justify-content-center text-danger">
                                         BELUM
@@ -279,7 +279,7 @@
                                     <div class="col d-flex justify-content-center">
                                         <div class="checkout">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{$b->tarif}}" />
+                                                <input class="form-check-input" type="checkbox" name="idbukuair[]" value="{{$b->id}}" id="{{number_format($b->tarif)}}" />
                                             </div>
                                         </div>
                                     </div>
@@ -306,7 +306,7 @@
                                         {{ $b->kubik }}
                                     </div>
                                     <div class="tarif col d-flex justify-content-center">
-                                        {{ $b->tarif }}
+                                        Rp. {{number_format ($b->tarif) }}
                                     </div>
                                     <div class="ket col d-flex justify-content-center text-success">
                                         LUNAS

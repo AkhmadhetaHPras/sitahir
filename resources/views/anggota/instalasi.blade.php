@@ -28,11 +28,11 @@
                         <td class="kol1 align-middle">{{ $i->nama_barang }}</td>
                         <td class="align-middle">{{ $i->jumlah }}</td>
                         <td class="align-middle">
-                            <b>{{ $i->harga_satuan }}</b>
+                            <b>{{ number_format($i->harga_satuan) }}</b>
                             <div class="rupiah">rupiah</div>
                         </td>
                         <td class="align-middle">
-                            <b>{{ $i->subtotal }}</b>
+                            <b>{{ number_format($i->subtotal) }}</b>
                             <div class="rupiah">rupiah</div>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
         <div class="container-fluid tagihan">
             <div class="row pe-2 d-flex justify-content-end">
                 <div class="total col-md-3 col-sm-7 col-12">
-                    <p class="total-text">Rp. {{ $instalasi->tarif_instalasi }}</p>
+                    <p class="total-text">Rp. {{ number_format($instalasi->tarif_instalasi) }}</p>
                     <div class="bayar-con">
                         <button class="bayar" id="pay-button">Bayar</button>
                     </div>

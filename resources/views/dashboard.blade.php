@@ -109,7 +109,7 @@
                             <h6 class="card-title">Anggaran Listrik</h6>
                             <div class="card-body p-2">
                                 <h1 class="align-middle text-end">
-                                    <b>Rp. {{ $data[5]->anggaran }}</b>
+                                    <b>Rp. {{ number_format($data[5]->anggaran) }}</b>
                                 </h1>
                                 <h6 class="text-end">{{ date('F', mktime(0, 0, 0, $data[5]->bulan , 10)) }} {{ $data[5]->tahun }}</h6>
                             </div>
@@ -176,7 +176,7 @@
                             {{ $t->anggota->nowa }}</a>
                     </td>
                     <td>{{ $t->bulan }}</td>
-                    <td>Rp. {{ $t->tarif }}</td>
+                    <td>Rp. {{ number_format($t->tarif) }}</td>
                 </tr>
                 @endforeach
             </tbody>
