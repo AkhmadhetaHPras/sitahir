@@ -34,7 +34,7 @@
                         <td>{{ $a->buku_air->last()->bulan }}</td>
                         <td>{{ $a->buku_air->last()->meteran_air === null ? '-' : $a->buku_air->last()->meteran_air }}</td>
                         <td>{{ $a->buku_air->last()->kubik === null ? '-' : $a->buku_air->last()->kubik }}</td>
-                        <td>{{ $a->buku_air->last()->tarif === null ? '-' : $a->buku_air->last()->tarif }}</td>
+                        <td>Rp. {{ $a->buku_air->last()->tarif === null ? '-' : number_format($a->buku_air->last()->tarif) }}</td>
                         <td>
                             <a href="{{ route('bukuairanggota.show', $a->id) }}"><button class=" btn btn-warning ">DETAILS</button></a>
                         </td>

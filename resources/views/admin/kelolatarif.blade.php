@@ -67,7 +67,7 @@
           <form action="{{ route('tarif.destroy', $tr->id) }}" method="POST">
             <tr class="content">
               <td>{{ $tr ->kubik }}</td>
-              <td>{{ $tr ->tarif }}</td>
+              <td>Rp. {{ number_format($tr ->tarif) }}</td>
               @if(Auth::user()->hasRole('admin'))
               <td>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit{{$tr->id}}">

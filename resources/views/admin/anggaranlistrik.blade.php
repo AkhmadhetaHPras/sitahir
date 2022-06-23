@@ -29,7 +29,7 @@
                             <div class="card-body d-flex align-items-center">
                                 <div class="row row-air">
                                     <div class="jumlah-anggaran col d-flex justify-content-center align-items-center">
-                                        <b style="font-size: 2.3rem;">{{ $d->anggaran }}</b>
+                                        <b style="font-size: 2.3rem;">Rp {{number_format ($d->anggaran) }}</b>
                                     </div>
                                     <div class="col d-flex justify-content-center align-items-center">
                                         <div class="tanggal-bayar">{{ date('d/m/Y',strtotime(substr($d->tgl_bayar,0,10))) }}</div>
@@ -53,7 +53,7 @@
                             <div class="card-body d-flex align-items-center">
                                 <div class="row row-air">
                                     <div class="jumlah-anggaran col d-flex justify-content-center align-items-center">
-                                        <b style="font-size: 2.3rem;">{{ $d->anggaran }}</b>
+                                        <b style="font-size: 2.3rem;">Rp {{number_format ($d->anggaran) }}</b>
                                     </div>
                                     <div class="col d-flex justify-content-center align-items-center">
                                         <div class="tanggal-bayar">{{ date('d/m/Y',strtotime(substr($d->tgl_bayar,0,10))) }}</div>

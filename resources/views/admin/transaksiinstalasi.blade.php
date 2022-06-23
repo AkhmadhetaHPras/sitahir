@@ -127,7 +127,7 @@
               @method('put')
               <input type="submit" class="btn me-md-2 edit" value="Bayar">
             </form>
-            <p class="content3">Rp {{ $i->tarif_instalasi }}</p>
+            <p class="content3">Rp. {{ number_format($i->tarif_instalasi) }}</p>
           </div>
         </div>
         @endforeach
